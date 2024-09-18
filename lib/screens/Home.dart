@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'components/BottomNavBar.dart'; // Importa o componente de navegação
+import 'components/bottom_nav_bar.dart'; // Importa o componente de navegação
 
 class Home extends StatelessWidget {
   const Home({super.key});
