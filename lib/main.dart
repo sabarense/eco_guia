@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'screens/Home.dart';
-import 'screens/Tela1.dart';
-import 'screens/Tela2.dart';
-import 'screens/Tela3.dart';
-import 'screens/Tela4.dart';
+import 'screens/home.dart';
+import 'screens/tela_1.dart';
+import 'screens/tela_2.dart';
+import 'screens/tela_3.dart';
+import 'screens/tela_4.dart';
 
 void main() {
   runApp(const MyApp());
