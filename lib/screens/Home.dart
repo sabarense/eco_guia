@@ -1,7 +1,6 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/material.dart';
-import 'components/bottom_nav_bar.dart'; // Importa o componente de navegação
+import 'components/home_card.dart'; // Importa o componente de card
+import 'components/bottom_nav_bar.dart'; // Importa a barra de navegação
 
 class Home extends StatelessWidget {
   const Home({super.key});
@@ -9,14 +8,29 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Text(
-          'Home Page',
-          style: const TextStyle(fontSize: 24),
+      appBar: AppBar(
+        title: const Text('Home'),
+      ),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const SizedBox(height: 20),
+                const HomeCard(),
+                const SizedBox(height: 20),
+                const Text(
+                  'Bem-vindo à Home Page',
+                  style: TextStyle(fontSize: 24),
+                ),
+              ],
+            ),
+          ),
         ),
       ),
-      bottomNavigationBar:
-          const BottomNavBar(), // Usa o componente de navegação aqui
+      bottomNavigationBar: const BottomNavBar(), // Barra de navegação inferior
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           // Ação ao clicar no botão central
