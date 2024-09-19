@@ -1,12 +1,9 @@
-// ignore_for_file: file_names
-
 import 'package:flutter/material.dart';
 
 class BottomNavBar extends StatefulWidget {
   const BottomNavBar({super.key});
 
   @override
-  // ignore: library_private_types_in_public_api
   _BottomNavBarState createState() => _BottomNavBarState();
 }
 
@@ -41,31 +38,25 @@ class _BottomNavBarState extends State<BottomNavBar> {
   Widget build(BuildContext context) {
     return BottomAppBar(
       shape: const CircularNotchedRectangle(),
-      notchMargin: 10,
-      child: BottomNavigationBar(
-        currentIndex: _selectedIndex,
-        onTap: _onItemTapped,
-        type: BottomNavigationBarType.fixed,
-        selectedItemColor: Colors.green,
-        unselectedItemColor: Colors.grey,
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home_outlined),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.location_on_outlined),
-            label: 'Lixeiras',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.lightbulb_outline),
-            label: 'Learn',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person_outline),
-            label: 'Conta',
-          ),
-        ],
+      notchMargin: 6.0,
+      child: Row(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: List<Widget>.generate(4, (index) {
+          return IconButton(
+            icon: Icon(
+              index == 0
+                  ? Icons.home_outlined
+                  : index == 1
+                      ? Icons.location_on_outlined
+                      : index == 2
+                          ? Icons.lightbulb_outline
+                          : Icons.person_outline,
+              color: _selectedIndex == index ? Colors.green : Colors.grey,
+            ),
+            onPressed: () => _onItemTapped(index),
+          );
+        }),
       ),
     );
   }
