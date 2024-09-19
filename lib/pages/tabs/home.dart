@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'components/home_card.dart'; // Importa o componente de card
-import 'components/bottom_nav_bar.dart'; // Importa a barra de navegação
+import '../components/home_card.dart'; // Importa o componente de card
+import '../components/bottom_nav_bar.dart'; // Importa a barra de navegação
 
 class Home extends StatelessWidget {
   const Home({super.key});
