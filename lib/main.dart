@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'screens/home.dart';
+import 'pages/tabs/home.dart';
 import 'pages/tabs/tela_1.dart';
 import 'pages/tabs/tela_2.dart';
 import 'pages/tabs/tela_3.dart';
