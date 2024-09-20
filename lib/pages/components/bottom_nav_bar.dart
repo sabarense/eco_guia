@@ -20,13 +20,13 @@ class _BottomNavBarState extends State<BottomNavBar> {
           Navigator.pushNamed(context, '/');
           break;
         case 1:
-          Navigator.pushNamed(context, '/lixeiras');
+          Navigator.pushNamed(context, '/location');
           break;
         case 2:
           Navigator.pushNamed(context, '/learn');
           break;
         case 3:
-          Navigator.pushNamed(context, '/conta');
+          Navigator.pushNamed(context, '/profile');
           break;
         default:
           Navigator.pushNamed(context, '/');
