@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'components/home_card.dart'; // Importa o componente de card
 import 'components/bottom_nav_bar.dart'; // Importa a barra de navegação
@@ -12,22 +14,20 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: SingleChildScrollView(
+        child: const SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: EdgeInsets.all(16.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Adicionando o CustomHeader acima do HomeCard
-                const CustomHeader(),
-                const SizedBox(height: 20),
-                const HomeCard(),
-                const SizedBox(height: 20),
-                // Adicionando a sessão de Materiais
-                const MateriaisSection(),
-                const SizedBox(height: 20),
-                const ItensFrequentesSection(),
-                const SizedBox(height: 20), // Espaço extra se necessário
+                CustomHeader(),
+                SizedBox(height: 20),
+                HomeCard(),
+                SizedBox(height: 20),
+                MateriaisSection(),
+                SizedBox(height: 20),
+                ItensFrequentesSection(),
+                SizedBox(height: 20),
               ],
             ),
           ),
