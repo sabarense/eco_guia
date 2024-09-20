@@ -52,7 +52,9 @@ class _BottomNavBarState extends State<BottomNavBar> {
                       : index == 2
                           ? Icons.lightbulb_outline
                           : Icons.person_outline,
-              color: _selectedIndex == index ? Colors.green : Colors.grey,
+              color: _selectedIndex == index
+                  ? Theme.of(context).colorScheme.primary
+                  : Colors.grey,
             ),
             onPressed: () => _onItemTapped(index),
           );

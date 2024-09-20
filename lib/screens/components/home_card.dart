@@ -6,39 +6,65 @@ class HomeCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      elevation: 4, // Adiciona uma sombra ao card
+      elevation: 4,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(15), // Bordas arredondadas
+        borderRadius: BorderRadius.circular(15),
       ),
+      color: Theme.of(context).colorScheme.primary,
       child: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            const ListTile(
-              leading: Icon(Icons.home, size: 40),
-              title: Text('Bem-vindo ao App'),
-              subtitle: Text('Explore as funcionalidades do nosso aplicativo.'),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            Column(
+              children: const [
+                Icon(Icons.emoji_events, size: 40, color: Colors.amber),
+                SizedBox(height: 8),
+                Text(
+                  '3229',
+                  style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white),
+                ),
+                Text(
+                  'PONTOS',
+                  style: TextStyle(color: Colors.white),
+                ),
+              ],
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: <Widget>[
-                TextButton(
-                  child: const Text('SAIBA MAIS'),
-                  onPressed: () {
-                    // Ação quando o botão é clicado
-                    print('Botão Saiba Mais clicado');
-                  },
+            Column(
+              children: const [
+                Icon(Icons.cloud, size: 40, color: Colors.white),
+                SizedBox(height: 8),
+                Text(
+                  '500g',
+                  style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white),
                 ),
-                const SizedBox(width: 8),
-                TextButton(
-                  child: const Text('COMEÇAR'),
-                  onPressed: () {
-                    // Ação quando o botão é clicado
-                    print('Botão Começar clicado');
-                  },
+                Text(
+                  'CO2 SALVO',
+                  style: TextStyle(color: Colors.white),
                 ),
-                const SizedBox(width: 8),
+              ],
+            ),
+            Column(
+              children: const [
+                Icon(Icons.shopping_bag, size: 40, color: Colors.pink),
+                SizedBox(height: 8),
+                Text(
+                  '23',
+                  style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white),
+                ),
+                Text(
+                  'RECICLADOS',
+                  style: TextStyle(color: Colors.white),
+                ),
               ],
             ),
           ],
