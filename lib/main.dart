@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.deepPurple, // Cor semente
+          seedColor: Colors.green, // Cor semente
           primary: const Color(0xFF185A46), // Definindo cor primária
         ),
         useMaterial3: true,
@@ -37,10 +37,10 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => const Home(),
-        '/tela1': (context) => const Tela1(),
-        '/tela2': (context) => const Tela2(),
-        '/tela3': (context) => const Tela3(),
-        '/tela4': (context) => const Tela4(),
+        '/location': (context) => const Tela1(),
+        '/learn': (context) => const Tela2(),
+        '/profile': (context) => const Tela3(),
+        '/scan': (context) => const Tela4(),
       },
     );
   }
