@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'dart:ui'
     as ui; // Import necessário para registrar ViewFactory no Flutter Web
 import 'dart:html'; // Necessário para usar elementos HTML no Flutter Web
-import 'pages/tabs/home.dart';
+import 'pages/home/home.dart';
 import 'pages/tabs/tela_1.dart';
-import 'pages/tabs/tela_2.dart';
+import 'pages/learn/learn.dart';
 import 'pages/tabs/tela_3.dart';
 import 'pages/tabs/tela_4.dart';
 
