@@ -14,7 +14,7 @@ class Tela2 extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              'Bem-vindo à Tela 1',
+              'Bem-vindo à Tela 2',
               style: Theme.of(context).textTheme.headlineMedium,
             ),
             const SizedBox(height: 20),
