@@ -29,11 +29,11 @@ class MateriaisSection extends StatelessWidget {
           ),
         ),
         // Lista de materiais ocupando a largura total da tela
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        const Padding(
+          padding: EdgeInsets.symmetric(horizontal: 16.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: const [
+            children: [
               Expanded(
                 child: MaterialCard(
                   imagePath: 'assets/plastico.png',
@@ -94,7 +94,7 @@ class MaterialCard extends StatelessWidget {
                 color: Theme.of(context).colorScheme.primary,
                 width: 2) // Borda verde se selecionado
             : null,
-        boxShadow: [
+        boxShadow: const [
           BoxShadow(
             color: Colors.black12,
             blurRadius: 10,

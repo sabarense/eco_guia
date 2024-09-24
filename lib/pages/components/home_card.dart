@@ -11,13 +11,13 @@ class HomeCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(15),
       ),
       color: Theme.of(context).colorScheme.primary,
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
+      child: const Padding(
+        padding: EdgeInsets.all(16.0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             Column(
-              children: const [
+              children: [
                 Icon(Icons.emoji_events, size: 40, color: Colors.amber),
                 SizedBox(height: 8),
                 Text(
@@ -34,7 +34,7 @@ class HomeCard extends StatelessWidget {
               ],
             ),
             Column(
-              children: const [
+              children: [
                 Icon(Icons.cloud, size: 40, color: Colors.white),
                 SizedBox(height: 8),
                 Text(
@@ -51,7 +51,7 @@ class HomeCard extends StatelessWidget {
               ],
             ),
             Column(
-              children: const [
+              children: [
                 Icon(Icons.shopping_bag, size: 40, color: Colors.pink),
                 SizedBox(height: 8),
                 Text(

@@ -1,38 +1,14 @@
 import 'package:flutter/material.dart';
 
-class BottomNavBar extends StatefulWidget {
-  const BottomNavBar({super.key});
+class BottomNavBar extends StatelessWidget {
+  final int selectedIndex;
+  final Function(int) onItemTapped;
 
-  @override
-  _BottomNavBarState createState() => _BottomNavBarState();
-}
-
-class _BottomNavBarState extends State<BottomNavBar> {
-  int _selectedIndex = 0;
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-
-      // Redirecionamento baseado no índice selecionado
-      switch (index) {
-        case 0:
-          Navigator.pushNamed(context, '/');
-          break;
-        case 1:
-          Navigator.pushNamed(context, '/location');
-          break;
-        case 2:
-          Navigator.pushNamed(context, '/learn');
-          break;
-        case 3:
-          Navigator.pushNamed(context, '/profile');
-          break;
-        default:
-          Navigator.pushNamed(context, '/');
-      }
-    });
-  }
+  const BottomNavBar({
+    super.key,
+    required this.selectedIndex,
+    required this.onItemTapped,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -52,11 +28,11 @@ class _BottomNavBarState extends State<BottomNavBar> {
                       : index == 2
                           ? Icons.lightbulb_outline
                           : Icons.person_outline,
-              color: _selectedIndex == index
+              color: selectedIndex == index
                   ? Theme.of(context).colorScheme.primary
                   : Colors.grey,
             ),
-            onPressed: () => _onItemTapped(index),
+            onPressed: () => onItemTapped(index), // Chama a função ao clicar
           );
         }),
       ),

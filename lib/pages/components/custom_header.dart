@@ -11,7 +11,7 @@ class CustomHeader extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           // Avatar e informações do usuário
-          Row(
+          const Row(
             children: [
               // Avatar
               CircleAvatar(
@@ -19,11 +19,11 @@ class CustomHeader extends StatelessWidget {
                 backgroundImage: AssetImage(
                     'assets/profile.png'), // Altere o caminho da imagem
               ),
-              const SizedBox(width: 12), // Espaçamento entre o avatar e o texto
+              SizedBox(width: 12), // Espaçamento entre o avatar e o texto
               // Texto com nome e localização
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
+                children: [
                   Text(
                     'Olá, Fernando',
                     style: TextStyle(
