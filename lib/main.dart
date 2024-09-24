@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'dart:ui'
+    as ui; // Import necessário para registrar ViewFactory no Flutter Web
+import 'dart:html'; // Necessário para usar elementos HTML no Flutter Web
 import 'pages/tabs/home.dart';
 import 'pages/tabs/tela_1.dart';
 import 'pages/tabs/tela_2.dart';
@@ -6,6 +9,12 @@ import 'pages/tabs/tela_3.dart';
 import 'pages/tabs/tela_4.dart';
 
 void main() {
+  // Registrar o elemento HTML 'map' para uso no Flutter Web
+  ui.platformViewRegistry.registerViewFactory(
+    'map',
+    (int viewId) => DivElement()..id = 'map',
+  );
+
   runApp(const MyApp());
 }
 
@@ -33,7 +42,6 @@ class MyApp extends StatelessWidget {
           headlineSmall: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
         ),
       ),
-      // Define as rotas da aplicação
       initialRoute: '/',
       routes: {
         '/': (context) => const Home(),
