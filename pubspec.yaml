@@ -45,3 +45,8 @@ flutter:
     - assets/banana.png
     - assets/plastic-bag.png
     - assets/phone.png
+
+    - assets/card1.png
+    - assets/card2.png
+    - assets/cardlearn1.png
+    - assets/cardlearn2.png
