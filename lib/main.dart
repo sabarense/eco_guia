@@ -7,6 +7,7 @@ import 'pages/tabs/tela_1.dart';
 import 'pages/learn/learn.dart';
 import 'pages/tabs/tela_3.dart';
 import 'pages/tabs/tela_4.dart';
+import 'pages/rewards/rewards.dart'; // Import da tela genérica
 
 void main() {
   // Registrar o elemento HTML 'map' para uso no Flutter Web
@@ -49,6 +50,7 @@ class MyApp extends StatelessWidget {
         '/learn': (context) => const Tela2(),
         '/profile': (context) => const Tela3(),
         '/scan': (context) => const Tela4(),
+        '/rewards': (context) => const Rewards(),
       },
     );
   }
