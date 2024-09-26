@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 
@@ -16,7 +17,7 @@ class _LoginState extends State<Login> {
   @override
   void initState() {
     super.initState();
-    _checkLoginStatus();
+    _checkLoginStatus(); 
   }
 
   void _login() async {
@@ -24,12 +25,11 @@ class _LoginState extends State<Login> {
     String password = _passwordController.text;
 
     if (email == 'teste@teste.com' && password == '123456') {
-      // Salva o estado de login
+
       final prefs = await SharedPreferences.getInstance();
       await prefs.setBool('isLoggedIn', true);
-
-      // Redireciona para a home
-      Navigator.pushReplacementNamed(context, '/');
+      
+      Navigator.pushReplacementNamed(context, '/'); 
     } else {
       showDialog(
         context: context,
@@ -71,6 +71,21 @@ class _LoginState extends State<Login> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            // Adicionando o título acima da logo
+            const Text(
+              'Eco Guia',
+              style: TextStyle(
+                fontSize: 24, 
+                fontWeight: FontWeight.bold, 
+              ),
+            ),
+            const SizedBox(height: 16), // Espaçamento entre o título e a logo
+            // Adicionando a logo no topo
+            SvgPicture.asset(
+              'assets/logo.svg',
+              height: 150, // Defina o tamanho da logo
+            ),
+            const SizedBox(height: 70), // Espaçamento entre a logo e os campos
             TextField(
               controller: _emailController,
               decoration: InputDecoration(
