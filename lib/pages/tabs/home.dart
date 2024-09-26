@@ -11,6 +11,18 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Home'),
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.logout, color: Colors.black,),
+            onPressed: () {
+              _logout(context); 
+            },
+          ),
+        ],
+      ),
       body: const SafeArea(
         child: SingleChildScrollView(
           child: Padding(
@@ -49,5 +61,9 @@ class Home extends StatelessWidget {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
+  }
+
+  void _logout(BuildContext context) {
+    Navigator.pushReplacementNamed(context, '/login'); // Redireciona para a tela de login
   }
 }
