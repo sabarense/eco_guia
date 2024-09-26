@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import './components/custom_home_card.dart'; // Importe o CustomHomeCard
-import './components/historico_rewards_tabs.dart'; // Importe o HistoricoRewardsTabs
+import './components/tabs.dart'; // Importe o HistoricoRewardsTabs
 
 class Rewards extends StatelessWidget {
   const Rewards({super.key});
