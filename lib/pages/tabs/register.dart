@@ -1,5 +1,6 @@
-// lib/pages/tabs/register.dart
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart'; // Importa o pacote flutter_svg
+import 'package:shared_preferences/shared_preferences.dart'; // Importa o pacote shared_preferences
 
 class Register extends StatefulWidget {
   const Register({super.key});
@@ -13,13 +14,19 @@ class _RegisterState extends State<Register> {
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _nameController = TextEditingController();
 
-  void _register() {
+  void _register() async {
     String name = _nameController.text;
     String email = _emailController.text;
     String password = _passwordController.text;
 
     // Simulação de registro de usuário
     if (name.isNotEmpty && email.isNotEmpty && password.isNotEmpty) {
+      // Aqui você pode adicionar lógica para salvar o usuário em um banco de dados ou servidor
+
+      // Salvando o status de login no SharedPreferences
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setBool('isLoggedIn', true);
+
       // Se o registro for bem-sucedido, navega para a tela Home
       Navigator.pushReplacementNamed(context, '/');
     } else {
@@ -55,6 +62,21 @@ class _RegisterState extends State<Register> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            // Adicionando o título acima da logo
+            const Text(
+              'Eco Guia',
+              style: TextStyle(
+                fontSize: 24, // Tamanho da fonte do título
+                fontWeight: FontWeight.bold, // Estilo em negrito
+              ),
+            ),
+            const SizedBox(height: 16), // Espaçamento entre o título e a logo
+            // Adicionando a logo no topo
+            SvgPicture.asset(
+              'assets/logo.svg',
+              height: 150, // Defina o tamanho da logo
+            ),
+            const SizedBox(height: 70), // Espaçamento entre a logo e os campos
             TextField(
               controller: _nameController,
               decoration: InputDecoration(
