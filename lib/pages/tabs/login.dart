@@ -1,5 +1,6 @@
-// lib/pages/tabs/login.dart
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -12,11 +13,22 @@ class _LoginState extends State<Login> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
-  void _login() {
+  @override
+  void initState() {
+    super.initState();
+    _checkLoginStatus();
+  }
+
+  void _login() async {
     String email = _emailController.text;
     String password = _passwordController.text;
 
     if (email == 'teste@teste.com' && password == '123456') {
+      // Salva o estado de login
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setBool('isLoggedIn', true);
+
+      // Redireciona para a home
       Navigator.pushReplacementNamed(context, '/');
     } else {
       showDialog(
@@ -34,6 +46,15 @@ class _LoginState extends State<Login> {
           ],
         ),
       );
+    }
+  }
+
+  Future<void> _checkLoginStatus() async {
+    final prefs = await SharedPreferences.getInstance();
+    bool isLoggedIn = prefs.getBool('isLoggedIn') ?? false;
+
+    if (isLoggedIn) {
+      Navigator.pushReplacementNamed(context, '/');
     }
   }
 
