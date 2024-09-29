@@ -65,9 +65,8 @@ class HistoricoRewardsTabsState extends State<HistoricoRewardsTabs> {
           ],
         ),
         const SizedBox(height: 20),
-        Flexible(
-          child:
-              _tabContents[_selectedIndex], // Usa o componente correspondente
+        Expanded(
+          child: _tabContents[_selectedIndex], // Troca o Flexible por Expanded
         ),
       ],
     );
