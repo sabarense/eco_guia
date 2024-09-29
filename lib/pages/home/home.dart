@@ -6,6 +6,7 @@ import 'components/custom_header.dart';
 import 'components/itens_frequentes_section.dart';
 import 'components/flutter_web_google_maps.dart';
 import '../scan/fullscreen_image_screen.dart'; // Importando a nova tela
+import '../locations/multiple_markers_map.dart'; // Importando a tela do mapa com múltiplos marcadores
 
 // Outras telas que você deseja exibir quando os ícones da navbar forem clicados
 import '../tabs/tela_1.dart';
@@ -23,11 +24,32 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   int _selectedIndex = 0;
 
-  // Função que atualiza o índice selecionado
+  // Função que atualiza o índice selecionado e redireciona para o mapa de múltiplos marcadores
   void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
+    if (index == 1) {
+      // Quando o ícone de localização for clicado
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => MultipleMarkersMap(
+            mapId: 'full-map',
+            latitude: -19.9191,
+            longitude: -43.9386,
+            locations: [
+              {'lat': -19.9191, 'lng': -43.9386, 'title': 'Ponto 1'},
+              {'lat': -19.9300, 'lng': -43.9400, 'title': 'Ponto 2'},
+              {'lat': -19.9400, 'lng': -43.9500, 'title': 'Ponto 3'},
+              {'lat': -19.9500, 'lng': -43.9600, 'title': 'Ponto 4'},
+              {'lat': -19.9600, 'lng': -43.9700, 'title': 'Ponto 5'},
+            ],
+          ),
+        ),
+      );
+    } else {
+      setState(() {
+        _selectedIndex = index;
+      });
+    }
   }
 
   // As telas que serão exibidas, dependendo do índice selecionado

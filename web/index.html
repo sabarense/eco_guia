@@ -23,13 +23,14 @@
     <link rel="manifest" href="manifest.json" />
 
     <script>
-      function initMap(mapId, latitude, longitude) {
+      function initMap(mapId, latitude, longitude, locations) {
         console.log(
           `Inicializando o mapa para ${mapId} com coordenadas: ${latitude}, ${longitude}`
         );
+
         var map = new google.maps.Map(document.getElementById(mapId), {
           center: { lat: latitude, lng: longitude },
-          zoom: 15,
+          zoom: 12, // Zoom ajustado para mostrar vários pontos
           styles: [
             {
               featureType: "all",
@@ -256,10 +257,13 @@
           ],
         });
 
-        var marker = new google.maps.Marker({
-          position: { lat: latitude, lng: longitude },
-          map: map,
-          title: "Localização",
+        // Adiciona múltiplos marcadores
+        locations.forEach(function (location) {
+          var marker = new google.maps.Marker({
+            position: { lat: location.lat, lng: location.lng },
+            map: map,
+            title: location.title,
+          });
         });
       }
     </script>
