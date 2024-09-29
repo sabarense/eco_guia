@@ -31,7 +31,12 @@ class Rewards extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment
               .stretch, // Alinha widgets ao longo do eixo horizontal
           children: [
-            CustomHomeCard(), // Mantém o CustomHomeCard
+            Padding(
+              padding: const EdgeInsets.only(
+                  top:
+                      20.0), // Adiciona espaçamento entre a AppBar e o primeiro widget
+              child: CustomHomeCard(), // Mantém o CustomHomeCard
+            ),
             const SizedBox(height: 60), // Adiciona espaçamento entre os widgets
             SizedBox(
               height: MediaQuery.of(context).size.height *
