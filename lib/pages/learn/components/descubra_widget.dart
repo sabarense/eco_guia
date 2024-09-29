@@ -7,7 +7,7 @@ class DescubraWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(16.0),
+      padding: const EdgeInsets.all(16.0), // Margem nas laterais da tela
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -32,14 +32,19 @@ class DescubraWidget extends StatelessWidget {
           const SizedBox(height: 16),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: const [
-              CardPersonalizado(
-                imageUrl: 'assets/card1.png',
-                title: 'Quais plásticos podem ser reciclados?',
+            children: [
+              Expanded(
+                child: CardPersonalizado(
+                  imageUrl: 'assets/card1.png',
+                  title: 'Quais plásticos podem ser reciclados?',
+                ),
               ),
-              CardPersonalizado(
-                imageUrl: 'assets/card2.png',
-                title: 'Maneiras para reduzir o desperdício',
+              const SizedBox(width: 16), // Espaço entre os cards
+              Expanded(
+                child: CardPersonalizado(
+                  imageUrl: 'assets/card2.png',
+                  title: 'Maneiras para reduzir o desperdício',
+                ),
               ),
             ],
           ),
