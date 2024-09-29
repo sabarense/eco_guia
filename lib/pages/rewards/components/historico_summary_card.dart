@@ -16,32 +16,41 @@ class HistoricoSummaryCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
+            Text(
               'Itens Reciclados',
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
-                color: Colors.black87,
+                color: Theme.of(context)
+                    .colorScheme
+                    .onSurface, // Usando a cor do tema
               ),
             ),
             const SizedBox(height: 16),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                // Primeira caixa com "493g esse mês"
-                _buildMetricCard('493g', 'esse mês', Colors.green[100]!),
-                // Segunda caixa com "62% a mais que a semana passada"
-                _buildMetricCard(
-                    '62%', 'a mais que a semana passada', Colors.green[100]!),
+                // Os cards ocupam toda a largura disponível e são alinhados
+                Expanded(
+                  child: _buildMetricCard('493g', 'esse mês',
+                      Theme.of(context).colorScheme.primaryContainer),
+                ),
+                const SizedBox(width: 16), // Espaçamento entre os dois cards
+                Expanded(
+                  child: _buildMetricCard('62%', 'a mais que a semana passada',
+                      Theme.of(context).colorScheme.primaryContainer),
+                ),
               ],
             ),
             const SizedBox(height: 20),
-            const Text(
+            Text(
               'Resumo da semana',
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
-                color: Colors.black87,
+                color: Theme.of(context)
+                    .colorScheme
+                    .onSurface, // Usando a cor do tema
               ),
             ),
             const SizedBox(height: 16),
@@ -50,7 +59,7 @@ class HistoricoSummaryCard extends StatelessWidget {
               height: 200,
               child: BarChart(
                 BarChartData(
-                  barGroups: _buildBarGroups(), // Dados do gráfico
+                  barGroups: _buildBarGroups(context), // Dados do gráfico
                   borderData: FlBorderData(show: false),
                   titlesData: FlTitlesData(
                     show: true,
@@ -72,26 +81,37 @@ class HistoricoSummaryCard extends StatelessWidget {
 
   // Função para construir as caixas com os valores e textos
   Widget _buildMetricCard(String value, String label, Color backgroundColor) {
-    return Container(
-      padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        color: backgroundColor,
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: Column(
-        children: [
-          Text(
-            value,
-            style: const TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
+    return SizedBox(
+      height: 100, // Define uma altura fixa para o card
+      child: Container(
+        padding: const EdgeInsets.all(12),
+        decoration: BoxDecoration(
+          color: backgroundColor, // Cor de fundo da caixa usando o tema
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: Column(
+          crossAxisAlignment:
+              CrossAxisAlignment.start, // Alinha o texto à esquerda
+          mainAxisAlignment:
+              MainAxisAlignment.start, // Garante que o conteúdo fique no topo
+          children: [
+            Text(
+              value,
+              style: const TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+              ),
             ),
-          ),
-          Text(
-            label,
-            style: const TextStyle(fontSize: 14, color: Colors.black54),
-          ),
-        ],
+            Text(
+              label,
+              style: TextStyle(
+                fontSize: 14,
+                color: Colors
+                    .black54, // Ou use Theme.of(context).colorScheme.onPrimaryContainer
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -137,20 +157,20 @@ class HistoricoSummaryCard extends StatelessWidget {
   }
 
   // Função para criar os dados do gráfico de barras
-  List<BarChartGroupData> _buildBarGroups() {
+  List<BarChartGroupData> _buildBarGroups(BuildContext context) {
     return [
-      _buildBarGroup(0, 5),
-      _buildBarGroup(1, 7),
-      _buildBarGroup(2, 3),
-      _buildBarGroup(3, 4),
-      _buildBarGroup(4, 6),
-      _buildBarGroup(5, 8),
-      _buildBarGroup(6, 2),
+      _buildBarGroup(context, 0, 5),
+      _buildBarGroup(context, 1, 7),
+      _buildBarGroup(context, 2, 3),
+      _buildBarGroup(context, 3, 4),
+      _buildBarGroup(context, 4, 6),
+      _buildBarGroup(context, 5, 8),
+      _buildBarGroup(context, 6, 2),
     ];
   }
 
   // Função que constrói cada grupo de barras
-  BarChartGroupData _buildBarGroup(int x, double y) {
+  BarChartGroupData _buildBarGroup(BuildContext context, int x, double y) {
     return BarChartGroupData(
       x: x,
       barRods: [
@@ -159,7 +179,8 @@ class HistoricoSummaryCard extends StatelessWidget {
           width: 16,
           borderRadius: BorderRadius.circular(4),
           rodStackItems: [
-            BarChartRodStackItem(0, y, Colors.blue),
+            BarChartRodStackItem(
+                0, y, Theme.of(context).colorScheme.primary), // Cor da barra
           ],
         ),
       ],
