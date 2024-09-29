@@ -1,21 +1,40 @@
 import 'dart:html'; // Necessário para usar elementos HTML no Flutter Web
+import 'dart:ui' as ui; // Necessário para o viewType
 import 'dart:js' as js;
 import 'package:flutter/material.dart';
 
 class FlutterWebGoogleMaps extends StatelessWidget {
-  const FlutterWebGoogleMaps({super.key});
+  final String mapId; // Identificador do mapa
+  final double latitude;
+  final double longitude;
+
+  const FlutterWebGoogleMaps({
+    super.key,
+    required this.mapId,
+    required this.latitude,
+    required this.longitude,
+  });
 
   @override
   Widget build(BuildContext context) {
+    // Registra a viewFactory para garantir que o container do mapa seja criado corretamente
+    ui.platformViewRegistry.registerViewFactory(mapId, (int viewId) {
+      final divElement = DivElement()
+        ..id = mapId
+        ..style.width = '100%'
+        ..style.height = '100%';
+      return divElement;
+    });
+
     // Garante que o DOM está pronto antes de chamar initMap
     WidgetsBinding.instance.addPostFrameCallback((_) {
       Future.delayed(const Duration(milliseconds: 100), () {
-        final mapDiv = document.getElementById('map');
+        final mapDiv = document.getElementById(mapId);
         if (mapDiv != null) {
-          js.context
-              .callMethod('initMap'); // Inicializa o Google Maps via JavaScript
+          js.context.callMethod('initMap',
+              [mapId, latitude, longitude]); // Passa o ID e as coordenadas
         } else {
-          print('Erro: Div map não foi encontrado no DOM.');
+          print('Erro: Div $mapId não foi encontrado no DOM.');
         }
       });
     });
@@ -36,21 +55,12 @@ class FlutterWebGoogleMaps extends StatelessWidget {
         children: [
           // Mapa
           ClipRRect(
-            borderRadius:
-                BorderRadius.circular(15), // Bordas arredondadas no mapa
+            borderRadius: BorderRadius.circular(15),
             child: SizedBox(
               width: 120, // Defina a largura do mapa
               height: 120, // Defina a altura do mapa
               child: HtmlElementView(
-                viewType: 'map',
-                onPlatformViewCreated: (int id) {
-                  // Configura o estilo diretamente para evitar o erro de altura/largura
-                  var mapElement = document.getElementById('map');
-                  if (mapElement != null) {
-                    mapElement.style.height = '120px';
-                    mapElement.style.width = '120px';
-                  }
-                },
+                viewType: mapId, // Usa o identificador único
               ),
             ),
           ),

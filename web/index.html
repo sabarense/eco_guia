@@ -17,15 +17,18 @@
     <link rel="icon" type="image/png" href="favicon.png" />
 
     <!-- Adicione sua chave de API do Google Maps -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=CHAVE_DA_API"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=API_KEY"></script>
 
     <title>eco_guia</title>
     <link rel="manifest" href="manifest.json" />
 
     <script>
-      function initMap() {
-        var map = new google.maps.Map(document.getElementById("map"), {
-          center: { lat: -19.9191, lng: -43.9386 }, // Coordenadas do mapa
+      function initMap(mapId, latitude, longitude) {
+        console.log(
+          `Inicializando o mapa para ${mapId} com coordenadas: ${latitude}, ${longitude}`
+        );
+        var map = new google.maps.Map(document.getElementById(mapId), {
+          center: { lat: latitude, lng: longitude },
           zoom: 15,
           styles: [
             {
@@ -254,9 +257,9 @@
         });
 
         var marker = new google.maps.Marker({
-          position: { lat: -19.9191, lng: -43.9386 }, // Exemplo de coordenadas
+          position: { lat: latitude, lng: longitude },
           map: map,
-          title: "PUC Minas - Entrada 4",
+          title: "Localização",
         });
       }
     </script>
