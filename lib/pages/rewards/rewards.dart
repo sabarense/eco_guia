@@ -9,20 +9,38 @@ class Rewards extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Home Card Screen'),
-      ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment
-            .stretch, // Alinha widgets ao longo do eixo horizontal
-        children: [
-          CustomHomeCard(), // Mantém o CustomHomeCard
-          const SizedBox(height: 60), // Adiciona espaçamento entre os widgets
-          Expanded(
-            // Usa Expanded para ocupar o espaço restante
-            child:
-                const HistoricoRewardsTabs(), // Adiciona o HistoricoRewardsTabs abaixo
+        centerTitle: true, // Centraliza o título
+        title: const Text(
+          'Estatísticas',
+          style: TextStyle(
+            fontWeight: FontWeight.bold, // Negrito no título
+            color: Colors
+                .black, // Define a cor do título como preto para contraste
           ),
-        ],
+        ),
+        elevation: 4, // Sombra suave na base da AppBar
+        shadowColor: Colors.black.withOpacity(0.2), // Cor da sombra
+        backgroundColor: Colors.white, // Define o fundo da AppBar como branco
+        iconTheme: const IconThemeData(
+          color: Colors.black, // Define a cor dos ícones como preta
+        ),
+      ),
+      body: SingleChildScrollView(
+        // Permite que toda a tela seja rolável
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment
+              .stretch, // Alinha widgets ao longo do eixo horizontal
+          children: [
+            CustomHomeCard(), // Mantém o CustomHomeCard
+            const SizedBox(height: 60), // Adiciona espaçamento entre os widgets
+            SizedBox(
+              height: MediaQuery.of(context).size.height *
+                  0.6, // Defina uma altura fixa ou use Expanded
+              child:
+                  const HistoricoRewardsTabs(), // Adiciona o HistoricoRewardsTabs abaixo
+            ),
+          ],
+        ),
       ),
     );
   }
