@@ -5,6 +5,7 @@ import 'components/materiais_section.dart';
 import 'components/custom_header.dart';
 import 'components/itens_frequentes_section.dart';
 import 'components/flutter_web_google_maps.dart';
+import '../scan/fullscreen_image_screen.dart'; // Importando a nova tela
 
 // Outras telas que você deseja exibir quando os ícones da navbar forem clicados
 import '../tabs/tela_1.dart';
@@ -36,8 +37,7 @@ class _HomeState extends State<Home> {
       child: Padding(
         padding: EdgeInsets.all(16.0),
         child: Column(
-          crossAxisAlignment:
-              CrossAxisAlignment.start, // Alinhamento no eixo principal
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             CustomHeader(),
             SizedBox(height: 20),
@@ -48,7 +48,7 @@ class _HomeState extends State<Home> {
 
             // Adicionando o título "Pontos de Coleta" com margens laterais
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16.0), // Margem lateral
+              padding: EdgeInsets.symmetric(horizontal: 16.0),
               child: Text(
                 'Pontos de Coleta',
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
@@ -60,7 +60,7 @@ class _HomeState extends State<Home> {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 16.0),
               child: FlutterWebGoogleMaps(
-                  key: Key('map1'), // Chave única para cada instância
+                  key: Key('map1'),
                   mapId: 'map1',
                   latitude: -19.9191,
                   longitude: -43.9386),
@@ -118,9 +118,9 @@ class _HomeState extends State<Home> {
         ),
       ),
     ),
-    const Tela1(), // Outra tela que será exibida ao clicar no segundo ícone
-    const Tela2(), // Outra tela para o terceiro ícone
-    const Tela3(), // Outra tela para o quarto ícone
+    const Tela1(),
+    const Tela2(),
+    const Tela3(),
   ];
 
   @override
@@ -128,21 +128,25 @@ class _HomeState extends State<Home> {
     return Scaffold(
       body: SafeArea(
         child: IndexedStack(
-          index: _selectedIndex, // Exibe a tela baseada no índice
-          children: _pages, // Telas
+          index: _selectedIndex,
+          children: _pages,
         ),
       ),
       bottomNavigationBar: BottomNavBar(
-        selectedIndex: _selectedIndex, // Passa o índice selecionado
-        onItemTapped: _onItemTapped, // Função para lidar com toques
+        selectedIndex: _selectedIndex,
+        onItemTapped: _onItemTapped,
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          print('FloatingActionButton clicado!');
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => const FullscreenImageScreen()),
+          );
         },
-        backgroundColor: Theme.of(context).colorScheme.primary, // Cor do botão
-        shape: const CircleBorder(), // Formato redondo
-        child: const Icon(Icons.fullscreen), // Ícone central
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        shape: const CircleBorder(),
+        child: const Icon(Icons.fullscreen),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
