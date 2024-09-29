@@ -23,7 +23,11 @@ class HomeCard extends StatelessWidget {
             children: [
               Column(
                 children: [
-                  Icon(Icons.emoji_events, size: 40, color: Colors.amber),
+                  Image(
+                    image: AssetImage('assets/trofeu.png'), // Imagem do troféu
+                    width: 40,
+                    height: 40,
+                  ),
                   SizedBox(height: 8),
                   Text(
                     '3229',
@@ -40,7 +44,11 @@ class HomeCard extends StatelessWidget {
               ),
               Column(
                 children: [
-                  Icon(Icons.cloud, size: 40, color: Colors.white),
+                  Image(
+                    image: AssetImage('assets/nuvem.png'), // Imagem da nuvem
+                    width: 40,
+                    height: 40,
+                  ),
                   SizedBox(height: 8),
                   Text(
                     '500g',
@@ -57,7 +65,11 @@ class HomeCard extends StatelessWidget {
               ),
               Column(
                 children: [
-                  Icon(Icons.shopping_bag, size: 40, color: Colors.pink),
+                  Image(
+                    image: AssetImage('assets/bags.png'), // Imagem da sacola
+                    width: 40,
+                    height: 40,
+                  ),
                   SizedBox(height: 8),
                   Text(
                     '23',
