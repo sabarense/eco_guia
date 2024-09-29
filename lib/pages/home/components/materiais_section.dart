@@ -38,7 +38,7 @@ class MateriaisSection extends StatelessWidget {
                 child: MaterialCard(
                   imagePath: 'assets/plastico.png',
                   materialName: 'Plástico',
-                  isSelected: true,
+                  isSelected: false, // Deselecionado
                 ),
               ),
               SizedBox(width: 16), // Espaçamento entre os cards
@@ -46,6 +46,7 @@ class MateriaisSection extends StatelessWidget {
                 child: MaterialCard(
                   imagePath: 'assets/vidro.png',
                   materialName: 'Vidro',
+                  isSelected: false, // Deselecionado
                 ),
               ),
               SizedBox(width: 16), // Espaçamento entre os cards
@@ -53,6 +54,7 @@ class MateriaisSection extends StatelessWidget {
                 child: MaterialCard(
                   imagePath: 'assets/papel.png',
                   materialName: 'Papel',
+                  isSelected: false, // Deselecionado
                 ),
               ),
               SizedBox(width: 16), // Espaçamento entre os cards
@@ -60,6 +62,7 @@ class MateriaisSection extends StatelessWidget {
                 child: MaterialCard(
                   imagePath: 'assets/metal.png',
                   materialName: 'Metal',
+                  isSelected: false, // Deselecionado
                 ),
               ),
             ],
@@ -92,8 +95,9 @@ class MaterialCard extends StatelessWidget {
         border: isSelected
             ? Border.all(
                 color: Theme.of(context).colorScheme.primary,
-                width: 2) // Borda verde se selecionado
-            : null,
+                width: 2, // Borda verde se selecionado
+              )
+            : null, // Nenhuma borda se deselecionado
         boxShadow: const [
           BoxShadow(
             color: Colors.black12,
