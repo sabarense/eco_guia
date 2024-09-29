@@ -57,18 +57,18 @@ class FlutterWebGoogleMaps extends StatelessWidget {
           const SizedBox(width: 16), // Espaço entre o mapa e o conteúdo
 
           // Informações do ponto de coleta
-          Expanded(
+          const Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
+                Text(
                   '150m | 3 min.',
                   style: TextStyle(
                     color: Colors.grey,
                     fontSize: 14,
                   ),
                 ),
-                const Text(
+                Text(
                   'PUC Minas - Entrada 4',
                   style: TextStyle(
                     color: Colors.green,
@@ -76,8 +76,8 @@ class FlutterWebGoogleMaps extends StatelessWidget {
                     fontSize: 16,
                   ),
                 ),
-                const SizedBox(height: 8),
-                const Text(
+                SizedBox(height: 8),
+                Text(
                   '30% de espaço restante',
                   style: TextStyle(
                     color: Colors.orange,
@@ -85,11 +85,11 @@ class FlutterWebGoogleMaps extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                const SizedBox(height: 8),
+                SizedBox(height: 8),
 
                 // Materiais aceitos
                 Row(
-                  children: const [
+                  children: [
                     _MaterialInfo(label: 'Plástico', color: Colors.orange),
                     SizedBox(width: 16),
                     _MaterialInfo(label: 'Papel', color: Colors.purple),

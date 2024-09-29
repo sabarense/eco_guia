@@ -32,23 +32,23 @@ class _HomeState extends State<Home> {
   // As telas que serão exibidas, dependendo do índice selecionado
   final List<Widget> _pages = [
     // Tela principal (Home)
-    SingleChildScrollView(
+    const SingleChildScrollView(
       child: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment:
               CrossAxisAlignment.start, // Alinhamento no eixo principal
           children: [
-            const CustomHeader(),
-            const SizedBox(height: 20),
-            const HomeCard(),
-            const SizedBox(height: 20),
-            const MateriaisSection(),
-            const SizedBox(height: 20),
-            const FlutterWebGoogleMaps(), // Mapa do Google
-            const SizedBox(height: 20),
-            const ItensFrequentesSection(),
-            const SizedBox(height: 20),
+            CustomHeader(),
+            SizedBox(height: 20),
+            HomeCard(),
+            SizedBox(height: 20),
+            MateriaisSection(),
+            SizedBox(height: 20),
+            FlutterWebGoogleMaps(), // Mapa do Google
+            SizedBox(height: 20),
+            ItensFrequentesSection(),
+            SizedBox(height: 20),
           ],
         ),
       ),

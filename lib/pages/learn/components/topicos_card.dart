@@ -7,18 +7,18 @@ class TopicosCard extends StatelessWidget {
   final Color backgroundColor;
 
   const TopicosCard({
-    Key? key,
+    super.key,
     required this.title,
     required this.description,
     required this.imageUrl,
     required this.backgroundColor,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 10),
-      height: 150, // Aumentando a altura do card
+      height: 180, // Aumentando a altura do card
       decoration: BoxDecoration(
         color: backgroundColor,
         borderRadius: BorderRadius.circular(16),
