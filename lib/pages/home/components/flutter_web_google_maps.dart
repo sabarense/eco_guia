@@ -74,14 +74,14 @@ class FlutterWebGoogleMaps extends StatelessWidget {
                 Text(
                   '150m | 3 min.',
                   style: TextStyle(
-                    color: Colors.grey,
+                    color: Color(0xFF838383), // Cor da descrição
                     fontSize: 14,
                   ),
                 ),
                 Text(
                   'PUC Minas - Entrada 4',
                   style: TextStyle(
-                    color: Colors.green,
+                    color: Color(0xFF1E1E1E), // Cor do título
                     fontWeight: FontWeight.bold,
                     fontSize: 16,
                   ),
@@ -90,7 +90,7 @@ class FlutterWebGoogleMaps extends StatelessWidget {
                 Text(
                   '30% de espaço restante',
                   style: TextStyle(
-                    color: Colors.orange,
+                    color: Color(0xFF838383), // Cor da descrição
                     fontSize: 14,
                     fontWeight: FontWeight.bold,
                   ),
@@ -100,9 +100,13 @@ class FlutterWebGoogleMaps extends StatelessWidget {
                 // Materiais aceitos
                 Row(
                   children: [
-                    _MaterialInfo(label: 'Plástico', color: Colors.orange),
+                    _MaterialInfo(
+                        label: 'Plástico',
+                        color: Color(0xFFFB6A46)), // Cor do "Plástico"
                     SizedBox(width: 16),
-                    _MaterialInfo(label: 'Papel', color: Colors.purple),
+                    _MaterialInfo(
+                        label: 'Papel',
+                        color: Color(0xFF4670FB)), // Cor do "Papel"
                   ],
                 ),
               ],

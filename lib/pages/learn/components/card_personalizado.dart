@@ -50,7 +50,7 @@ class CardPersonalizado extends StatelessWidget {
               style: const TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
-                color: Colors.green,
+                color: Color(0xFF1E1E1E), // Cor ajustada para #1E1E1E
               ),
             ),
           ),
