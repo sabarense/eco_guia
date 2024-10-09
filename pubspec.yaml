@@ -10,6 +10,8 @@ environment:
   sdk: ">=3.5.0 <4.0.0"
 
 dependencies:
+  fl_chart: ^0.69.0
+
   flutter:
     sdk: flutter
   shared_preferences: ^2.0.15
@@ -47,4 +49,13 @@ flutter:
     - assets/plastic-bag.png
     - assets/phone.png
 
-    - assets/logo.svg
+    - assets/card1.png
+    - assets/card2.png
+    - assets/cardlearn1.png
+    - assets/cardlearn2.png
+
+    - assets/nuvem.png
+    - assets/bags.png
+    - assets/trofeu.png
+
+    - assets/scan_mockup.png
