@@ -1,7 +1,7 @@
+import 'package:eco_guia/services/database_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -13,29 +13,30 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  bool _isPasswordVisible = false;
 
   @override
   void initState() {
     super.initState();
-    _checkLoginStatus(); 
+    _checkLoginStatus();
   }
 
   void _login() async {
     String email = _emailController.text;
     String password = _passwordController.text;
 
-    if (email == 'teste@teste.com' && password == '123456') {
+    bool isValidUser = await DatabaseService().checkCredentials(email, password);
 
+    if (isValidUser) {
       final prefs = await SharedPreferences.getInstance();
       await prefs.setBool('isLoggedIn', true);
-      
-      Navigator.pushReplacementNamed(context, '/'); 
+      Navigator.pushReplacementNamed(context, '/');
     } else {
       showDialog(
         context: context,
         builder: (context) => AlertDialog(
           title: const Text('Erro'),
-          content: const Text('Email ou senha inválidos!'),
+          content: const Text('E-mail ou senha inválidos!'),
           actions: [
             TextButton(
               onPressed: () {
@@ -61,73 +62,116 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.primary,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
         title: const Text('Login'),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Color(0xFF185A46), Color(0xFF0B3D30)],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+        ),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            // Adicionando o título acima da logo
-            const Text(
-              'Eco Guia',
-              style: TextStyle(
-                fontSize: 24, 
-                fontWeight: FontWeight.bold, 
-              ),
-            ),
-            const SizedBox(height: 16), // Espaçamento entre o título e a logo
-            // Adicionando a logo no topo
-            SvgPicture.asset(
-              'assets/logo.svg',
-              height: 150, // Defina o tamanho da logo
-            ),
-            const SizedBox(height: 70), // Espaçamento entre a logo e os campos
-            TextField(
-              controller: _emailController,
-              decoration: InputDecoration(
-                labelText: 'Email',
-                labelStyle: TextStyle(color: Theme.of(context).colorScheme.primary),
-                border: const OutlineInputBorder(),
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Theme.of(context).colorScheme.primary),
+            Expanded(
+              child: Center(
+                child: SingleChildScrollView(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      const Text(
+                        'Eco Guia',
+                        style: TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+                      SvgPicture.asset(
+                        'assets/logo.svg',
+                        height: 150,
+                      ),
+                      const SizedBox(height: 70),
+                      TextField(
+                        controller: _emailController,
+                        decoration: InputDecoration(
+                          labelText: 'E-mail',
+                          labelStyle: TextStyle(color: Colors.white),
+                          border: const OutlineInputBorder(),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.white),
+                          ),
+                        ),
+                        keyboardType: TextInputType.emailAddress,
+                      ),
+                      const SizedBox(height: 16),
+                      TextField(
+                        controller: _passwordController,
+                        obscureText: !_isPasswordVisible,
+                        decoration: InputDecoration(
+                          labelText: 'Senha',
+                          labelStyle: TextStyle(color: Colors.white),
+                          border: const OutlineInputBorder(),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.white),
+                          ),
+                          suffixIcon: IconButton(
+                            icon: Icon(
+                              _isPasswordVisible ? Icons.visibility : Icons.visibility_off,
+                              color: Colors.white,
+                            ),
+                            onPressed: () {
+                              setState(() {
+                                _isPasswordVisible = !_isPasswordVisible;
+                              });
+                            },
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 24),
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.white,
+                          foregroundColor: Color(0xFF185A46),
+                        ),
+                        onPressed: _login,
+                        child: const Text('Entrar'),
+                      ),
+                      const SizedBox(height: 24),
+                      TextButton(
+                        onPressed: () {
+                          Navigator.pushNamed(context, '/register');
+                        },
+                        child: Text(
+                          'Não tem uma conta? Crie sua conta',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
-              keyboardType: TextInputType.emailAddress,
             ),
-            const SizedBox(height: 16),
-            TextField(
-              controller: _passwordController,
-              decoration: InputDecoration(
-                labelText: 'Senha',
-                labelStyle: TextStyle(color: Theme.of(context).colorScheme.primary),
-                border: const OutlineInputBorder(),
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Theme.of(context).colorScheme.primary),
-                ),
-              ),
-              obscureText: true,
-            ),
-            const SizedBox(height: 24),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Theme.of(context).colorScheme.primary,
-                foregroundColor: Colors.white,
-              ),
-              onPressed: _login,
-              child: const Text('Entrar'),
-            ),
-            const SizedBox(height: 24),
-            TextButton(
-              onPressed: () {
-                Navigator.pushNamed(context, '/register'); // Navegar para a tela de cadastro
-              },
+            const Padding(
+              padding: EdgeInsets.all(16.0),
               child: Text(
-                'Não tem uma conta? Crie sua conta',
-                style: TextStyle(color: Theme.of(context).colorScheme.primary),
+                '© 2024 Eco Guia. Todos os direitos reservados.',
+                style: TextStyle(
+                  color: Colors.white70,
+                  fontSize: 12,
+                ),
               ),
             ),
           ],
