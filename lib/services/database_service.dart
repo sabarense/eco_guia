@@ -40,6 +40,16 @@ class DatabaseService {
     ''');
   }
 
+  Future<bool> checkCredentials(String email, String password) async {
+  final db = await database;
+  final List<Map<String, dynamic>> maps = await db.query(
+    'users',
+    where: 'email = ? AND password = ?',
+    whereArgs: [email, password],
+  );
+  return maps.isNotEmpty;
+}
+
   Future<void> insertUser(User user) async {
     final db = await database;
     await db.insert('users', user.toMap(), conflictAlgorithm: ConflictAlgorithm.replace);
