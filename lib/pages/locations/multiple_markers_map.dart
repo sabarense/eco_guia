@@ -3,7 +3,7 @@ import 'dart:ui' as ui; // Necessário para o viewType
 import 'dart:js' as js;
 import 'package:flutter/material.dart';
 import '../home/components/bottom_nav_bar.dart';
-import '../scan/fullscreen_image_screen.dart';
+import '../scan/scan.dart';
 
 class MultipleMarkersMap extends StatelessWidget {
   final String mapId; // Identificador do mapa
@@ -103,7 +103,7 @@ class MultipleMarkersMap extends StatelessWidget {
             context,
             MaterialPageRoute(
               builder: (context) =>
-                  const FullscreenImageScreen(), // Substitua pelo nome da tela de scan, se necessário
+                  const Scan(), // Substitua pelo nome da tela de scan, se necessário
             ),
           );
         },
