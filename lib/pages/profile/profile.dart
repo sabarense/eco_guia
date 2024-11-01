@@ -1,19 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:eco_guia/services/auth_service.dart';
+import 'package:eco_guia/models/user.dart'; 
 
 class Profile extends StatelessWidget {
   const Profile({super.key});
 
   @override
   Widget build(BuildContext context) {
+    
+    User? currentUser = AuthService.getCurrentUser(); 
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Perfil'),
         automaticallyImplyLeading: false, // Remove o ícone de voltar
         actions: [
           IconButton(
-            icon: const Icon(Icons.logout, color: Colors.white),
+            icon: const Icon(Icons.logout, color: Colors.black),
             onPressed: () {
-              // Redireciona para a tela de login
+              AuthService.logout(context);
               Navigator.pushReplacementNamed(context, '/login');
             },
           ),
@@ -31,12 +36,12 @@ class Profile extends StatelessWidget {
             ),
             const SizedBox(height: 20),
             Text(
-              'Nome do Usuário',
+              currentUser?.name ?? 'Nome do Usuário',
               style: Theme.of(context).textTheme.headlineMedium,
             ),
             const SizedBox(height: 8),
             Text(
-              'email@exemplo.com',
+              currentUser?.email ?? 'email@exemplo.com', 
               style: Theme.of(context).textTheme.bodyMedium,
             ),
             const SizedBox(height: 20),
@@ -47,18 +52,17 @@ class Profile extends StatelessWidget {
               },
               child: const Text('Editar Perfil'),
               style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFF259E73), // Cor personalizada
+                backgroundColor: const Color(0xFF259E73)
               ),
             ),
             const SizedBox(height: 10),
-            // Adicionando mais informações se necessário
             Text(
               'Sobre você:',
               style: Theme.of(context).textTheme.headlineSmall,
             ),
             const SizedBox(height: 8),
             Text(
-              'Aqui você pode adicionar uma breve descrição sobre você ou interesses.',
+               'Aqui você pode adicionar uma breve descrição sobre você ou interesses.', 
               textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.bodyMedium,
             ),
