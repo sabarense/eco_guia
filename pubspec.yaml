@@ -20,6 +20,7 @@ dependencies:
   uuid: ^3.0.4
   sqflite: ^2.0.0+4
   path: ^1.8.0
+  sqflite_common_ffi: ^2.0.0
 
 dev_dependencies:
   flutter_test:
@@ -62,3 +63,4 @@ flutter:
     - assets/trofeu.png
 
     - assets/scan_mockup.png
+    - assets/logo.svg
