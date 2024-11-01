@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart'; // Importa shared_preferences
 import 'components/home_card.dart';
 import 'components/bottom_nav_bar.dart';
 import 'components/materiais_section.dart';
 import 'components/custom_header.dart';
 import 'components/itens_frequentes_section.dart';
 import 'components/flutter_web_google_maps.dart';
-import '../scan/fullscreen_image_screen.dart'; // Importando a nova tela
+import '../scan/scan.dart'; // Importando a nova tela
 import '../locations/multiple_markers_map.dart'; // Importando a tela do mapa com múltiplos marcadores
 
 // Outras telas que você deseja exibir quando os ícones da navbar forem clicados
 import '../tabs/tela_1.dart';
 import '../learn/learn.dart';
 import '../tabs/tela_3.dart';
-import '../tabs/tela_4.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -23,6 +23,13 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   int _selectedIndex = 0;
+
+  // Função para logout
+  void _logout(BuildContext context) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('isLoggedIn', false); // Remove o status de login
+    Navigator.pushReplacementNamed(context, '/login'); // Redireciona para a tela de login
+  }
 
   // Função que atualiza o índice selecionado e redireciona para o mapa de múltiplos marcadores
   void _onItemTapped(int index) {
@@ -67,8 +74,6 @@ class _HomeState extends State<Home> {
             SizedBox(height: 20),
             MateriaisSection(),
             SizedBox(height: 20),
-
-            // Adicionando o título "Pontos de Coleta" com margens laterais
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 16.0),
               child: Text(
@@ -77,8 +82,6 @@ class _HomeState extends State<Home> {
               ),
             ),
             SizedBox(height: 5),
-
-            // Mapa 1 com margens laterais
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 16.0),
               child: FlutterWebGoogleMaps(
@@ -88,8 +91,6 @@ class _HomeState extends State<Home> {
                   longitude: -43.9386),
             ),
             SizedBox(height: 20),
-
-            // Mapa 2 com margens laterais
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 16.0),
               child: FlutterWebGoogleMaps(
@@ -99,8 +100,6 @@ class _HomeState extends State<Home> {
                   longitude: -43.9400),
             ),
             SizedBox(height: 20),
-
-            // Mapa 3 com margens laterais
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 16.0),
               child: FlutterWebGoogleMaps(
@@ -110,8 +109,6 @@ class _HomeState extends State<Home> {
                   longitude: -43.9500),
             ),
             SizedBox(height: 20),
-
-            // Mapa 4 com margens laterais
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 16.0),
               child: FlutterWebGoogleMaps(
@@ -121,8 +118,6 @@ class _HomeState extends State<Home> {
                   longitude: -43.9600),
             ),
             SizedBox(height: 20),
-
-            // Mapa 5 com margens laterais
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 16.0),
               child: FlutterWebGoogleMaps(
@@ -132,8 +127,6 @@ class _HomeState extends State<Home> {
                   longitude: -43.9700),
             ),
             SizedBox(height: 20),
-
-            // Seção de itens frequentes
             ItensFrequentesSection(),
             SizedBox(height: 20),
           ],
@@ -141,13 +134,25 @@ class _HomeState extends State<Home> {
       ),
     ),
     const Tela1(),
-    const Tela2(),
-    const Tela3(),
+    const Learn(),
+    const Profile(),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Home'),
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.logout, color: Colors.black),
+            onPressed: () {
+              _logout(context);
+            },
+          ),
+        ],
+      ),
       body: SafeArea(
         child: IndexedStack(
           index: _selectedIndex,
@@ -163,7 +168,7 @@ class _HomeState extends State<Home> {
           Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => const FullscreenImageScreen()),
+                builder: (context) => const Scan()),
           );
         },
         backgroundColor: Theme.of(context).colorScheme.primary,
