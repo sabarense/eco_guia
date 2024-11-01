@@ -2,6 +2,7 @@ import 'package:eco_guia/models/user.dart';
 import 'package:eco_guia/pages/home/components/bottom_nav_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:eco_guia/services/user_service.dart';
+import 'package:eco_guia/services/auth_service.dart';
 
 class EditProfile extends StatefulWidget {
   final User user;
@@ -48,15 +49,18 @@ class _EditProfileState extends State<EditProfile> {
       _isLoading = false; // Para o loading
     });
 
+    
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
         title: const Text('Sucesso'),
-        content: const Text('Perfil atualizado com sucesso!'),
+        content: const Text('Perfil atualizado com sucesso! Você será redirecionado para o login.'),
         actions: [
           TextButton(
             onPressed: () {
-              Navigator.of(context).pop();
+              Navigator.of(context).pop(); 
+              AuthService.logout(context); 
+              Navigator.pushReplacementNamed(context, '/login'); 
             },
             child: const Text('Ok'),
           ),
@@ -130,8 +134,7 @@ class _EditProfileState extends State<EditProfile> {
                   ? CircularProgressIndicator(color: Colors.white)
                   : const Text('Salvar alterações'),
               style: ElevatedButton.styleFrom(
-                backgroundColor:
-                    const Color.fromARGB(255, 79, 226, 175), // Cor do botão
+                backgroundColor: const Color.fromARGB(255, 79, 226, 175), 
                 padding: const EdgeInsets.symmetric(vertical: 15.0),
                 textStyle: const TextStyle(fontSize: 14),
               ),
@@ -149,8 +152,7 @@ class _EditProfileState extends State<EditProfile> {
           } else if (index == 2) {
             Navigator.pushNamed(context, '/learn');
           } else if (index == 3) {
-            Navigator.pushNamed(context,
-                '/profile'); 
+            Navigator.pushNamed(context, '/profile'); 
           }
         },
       ),
