@@ -1,26 +1,26 @@
 import 'package:flutter/material.dart';
 
-class Tela3 extends StatelessWidget {
-  const Tela3({super.key});
+class Profile extends StatelessWidget {
+  const Profile({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Tela 1'),
+        title: const Text('Perfil'),
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              'Bem-vindo à Tela 1',
+              'Bem-vindo à tela de perfil',
               style: Theme.of(context).textTheme.headlineMedium,
             ),
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
-                Navigator.pop(context); // Voltar para a tela anterior (Home)
+                Navigator.pop(context); 
               },
               child: const Text('Voltar para Home'),
             ),
