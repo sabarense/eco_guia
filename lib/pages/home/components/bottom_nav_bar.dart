@@ -19,15 +19,21 @@ class BottomNavBar extends StatelessWidget {
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: List<Widget>.generate(4, (index) {
+          IconData icon;
+
+          if (index == 0) {
+            icon = Icons.home_outlined; // Home
+          } else if (index == 1) {
+            icon = Icons.location_on_outlined; // Locations
+          } else if (index == 2) {
+            icon = Icons.lightbulb_outline; // Learn
+          } else {
+            icon = Icons.person_outline; // Profile
+          }
+
           return IconButton(
             icon: Icon(
-              index == 0
-                  ? Icons.home_outlined
-                  : index == 1
-                      ? Icons.location_on_outlined
-                      : index == 2
-                          ? Icons.lightbulb_outline
-                          : Icons.person_outline,
+              icon,
               color: selectedIndex == index
                   ? Theme.of(context).colorScheme.primary
                   : Colors.grey,
