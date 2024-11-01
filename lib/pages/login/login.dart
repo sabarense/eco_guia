@@ -1,7 +1,8 @@
+import 'package:eco_guia/models/user.dart';
+import 'package:eco_guia/services/auth_service.dart';
 import 'package:eco_guia/services/database_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -21,41 +22,59 @@ class _LoginState extends State<Login> {
     _checkLoginStatus();
   }
 
-  void _login() async {
-    String email = _emailController.text;
-    String password = _passwordController.text;
+  Future<void> _login() async {
+  String email = _emailController.text;
+  String password = _passwordController.text;
 
-    bool isValidUser = await DatabaseService().checkCredentials(email, password);
-
-    if (isValidUser) {
-      final prefs = await SharedPreferences.getInstance();
-      await prefs.setBool('isLoggedIn', true);
-      Navigator.pushReplacementNamed(context, '/');
-    } else {
-      showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-          title: const Text('Erro'),
-          content: const Text('E-mail ou senha inválidos!'),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: const Text('OK'),
-            ),
-          ],
-        ),
-      );
-    }
+  if (email.isEmpty || password.isEmpty) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Erro'),
+        content: const Text('Por favor, preencha todos os campos!'),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            child: const Text('OK'),
+          ),
+        ],
+      ),
+    );
+    return; // Interrompe a execução se os campos estiverem vazios
   }
 
+  User? user = await DatabaseService().getUserByEmail(email);
+
+  if (user != null && user.password == password) {
+    AuthService.login(user);
+    Navigator.pushReplacementNamed(context, '/home');
+  } else {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Erro'),
+        content: const Text('E-mail ou senha inválidos!'),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            child: const Text('OK'),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
   Future<void> _checkLoginStatus() async {
-    final prefs = await SharedPreferences.getInstance();
-    bool isLoggedIn = prefs.getBool('isLoggedIn') ?? false;
+    bool isLoggedIn =
+        await AuthService.isLoggedIn(); // Verifica se o usuário está logado
 
     if (isLoggedIn) {
-      Navigator.pushReplacementNamed(context, '/');
+      Navigator.pushReplacementNamed(context, '/home');
     }
   }
 
@@ -129,7 +148,9 @@ class _LoginState extends State<Login> {
                           ),
                           suffixIcon: IconButton(
                             icon: Icon(
-                              _isPasswordVisible ? Icons.visibility : Icons.visibility_off,
+                              _isPasswordVisible
+                                  ? Icons.visibility
+                                  : Icons.visibility_off,
                               color: Colors.white,
                             ),
                             onPressed: () {
