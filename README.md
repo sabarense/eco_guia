@@ -67,4 +67,5 @@ Este projeto está licenciado sob a [MIT License](https://opensource.org/license
 **Desenvolvedores:**  
 - [Alexandre Niess](https://github.com/alexandreniess)
 - [Yan Sabarense Coelho Silva](https://github.com/sabarense)
+- [Rafael Maluf Araujo](https://github.com/RafaelMaluf)
 
