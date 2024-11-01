@@ -1,22 +1,58 @@
-import 'package:eco_guia/pages/scan/scan.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:sqflite/sqflite.dart';
+import 'package:sqflite_common_ffi/sqflite_ffi.dart';
+import 'package:sqflite_common_ffi_web/sqflite_ffi_web.dart';
 import 'package:eco_guia/pages/home/home.dart';
-import 'package:eco_guia/pages/tabs/login.dart';
-import 'package:eco_guia/pages/tabs/register.dart';
+import 'package:eco_guia/pages/login/login.dart';
+import 'package:eco_guia/pages/register/register.dart';
 import 'package:eco_guia/pages/learn/learn.dart';
 import 'package:eco_guia/pages/locations/multiple_markers_map.dart';
 import 'package:eco_guia/pages/rewards/rewards.dart';
-import 'package:eco_guia/pages/tabs/tela_3.dart';
-import 'package:sqflite_common_ffi/sqflite_ffi.dart';
-import 'package:eco_guia/pages/tabs/welcome_screen.dart';
+import 'package:eco_guia/pages/scan/scan.dart';
+import 'package:eco_guia/pages/profile/profile.dart';
+import 'package:eco_guia/pages/welcome_screen/welcome_screen.dart';
+import 'package:eco_guia/pages/profile/edit_profile.dart';
+import 'package:eco_guia/services/database_service.dart';
+import 'package:eco_guia/services/user_service.dart';
+import 'package:eco_guia/models/user.dart';
+
+Future<void> testDatabaseConnection() async {
+  var factory = databaseFactoryFfiWeb;
+  var db = await factory.openDatabase('my_db.db');
+  var sqliteVersion =
+      (await db.rawQuery('select sqlite_version()')).first.values.first;
+  print(sqliteVersion); 
+}
 
 void main() {
-  // databaseFactory = databaseFactoryFfi;
-  runApp(const MyApp());
+  if (kIsWeb) {
+    databaseFactory = databaseFactoryFfiWeb; // Para web
+  } else {
+    databaseFactory = databaseFactoryFfi; // Para outras plataformas
+  }
+
+  runApp(
+    MultiProvider(
+      providers: [
+        Provider<DatabaseService>(create: (_) => DatabaseService()),
+        Provider<UserService>(create: (_) => UserService()),
+      ],
+      child: const MyApp(),
+    ),
+  );
+  testDatabaseConnection();
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
+
+  Future<User?> _getCurrentUser(BuildContext context) async {
+    final userService = Provider.of<UserService>(context, listen: false);
+    List<User> users = await userService.getUsers();
+    return users.isNotEmpty ? users.first : null;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +76,8 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: '/',
       routes: {
-        '/': (context) => const WelcomeScreen(),  
+        '/': (context) => const WelcomeScreen(),
+        '/home': (context) => const Home(),
         '/location': (context) => const MultipleMarkersMap(
               mapId: 'full-map',
               latitude: -19.9191,
@@ -53,13 +90,28 @@ class MyApp extends StatelessWidget {
                 {'lat': -19.9600, 'lng': -43.9700, 'title': 'Ponto 5'},
               ],
             ),
-        '/home': (context) => const Home(),
         '/learn': (context) => const Learn(),
         '/profile': (context) => const Profile(),
         '/scan': (context) => const Scan(),
         '/rewards': (context) => const Rewards(),
         '/login': (context) => const Login(),
         '/register': (context) => const Register(),
+        '/edit_profile': (context) {
+          return FutureBuilder<User?>(
+            future: _getCurrentUser(context),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Center(child: CircularProgressIndicator());
+              } else if (snapshot.hasError) {
+                return const Center(child: Text('Erro ao carregar usuário'));
+              } else if (snapshot.hasData && snapshot.data != null) {
+                return EditProfile(user: snapshot.data!);
+              } else {
+                return const Login();
+              }
+            },
+          );
+        },
       },
     );
   }
