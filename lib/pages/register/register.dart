@@ -28,11 +28,10 @@ class _RegisterState extends State<Register> {
     if (name.isNotEmpty && email.isNotEmpty && password.isNotEmpty && password == confirmPassword) {
       UserService userService = UserService();
       await userService.addUser(name, email, password);
-
+      Navigator.pushReplacementNamed(context, '/login');
       final prefs = await SharedPreferences.getInstance();
       await prefs.setBool('isLoggedIn', true);
 
-      Navigator.pushReplacementNamed(context, '/login');
     } else {
       showDialog(
         context: context,
