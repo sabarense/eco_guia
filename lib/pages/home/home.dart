@@ -1,8 +1,7 @@
+import 'package:eco_guia/pages/home/components/custom_header.dart';
+import 'package:eco_guia/pages/home/components/home_card.dart';
+import 'package:eco_guia/pages/home/components/materiais_section.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:eco_guia/pages/components/home_card.dart';
-import 'package:eco_guia/pages/components/materiais_section.dart';
-import 'package:eco_guia/pages/components/custom_header.dart';
 import 'package:eco_guia/pages/home/components/bottom_nav_bar.dart';
 import 'package:eco_guia/pages/home/components/itens_frequentes_section.dart';
 import 'package:eco_guia/pages/home/components/flutter_web_google_maps.dart';
@@ -11,6 +10,7 @@ import 'package:eco_guia/pages/locations/multiple_markers_map.dart';
 import 'package:eco_guia/pages/profile/profile.dart';
 import 'package:eco_guia/pages/learn/learn.dart';
 import 'package:eco_guia/pages/profile/profile.dart';
+import 'package:eco_guia/services/auth_service.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -21,14 +21,6 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   int _selectedIndex = 0;
-
-  // Função para logout
-  void _logout(BuildContext context) async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setBool('isLoggedIn', false); // Remove o status de login
-    Navigator.pushReplacementNamed(
-        context, '/login'); // Redireciona para a tela de login
-  }
 
   // Função que atualiza o índice selecionado e redireciona para o mapa de múltiplos marcadores
   void _onItemTapped(int index) {
@@ -162,7 +154,7 @@ class _HomeState extends State<Home> {
                 IconButton(
                   icon: const Icon(Icons.logout, color: Colors.black),
                   onPressed: () {
-                    _logout(context);
+                    AuthService.logout(context);
                   },
                 ),
               ],
