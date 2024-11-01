@@ -1,18 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart'; // Importa shared_preferences
-import 'components/home_card.dart';
-import 'components/bottom_nav_bar.dart';
-import 'components/materiais_section.dart';
-import 'components/custom_header.dart';
-import 'components/itens_frequentes_section.dart';
-import 'components/flutter_web_google_maps.dart';
-import '../scan/scan.dart'; // Importando a nova tela
-import '../locations/multiple_markers_map.dart'; // Importando a tela do mapa com múltiplos marcadores
-
-// Outras telas que você deseja exibir quando os ícones da navbar forem clicados
-import '../tabs/tela_1.dart';
-import '../learn/learn.dart';
-import '../tabs/tela_3.dart';
+import 'package:shared_preferences/shared_preferences.dart'; 
+import 'package:eco_guia/pages/components/home_card.dart';
+import 'package:eco_guia/pages/components/materiais_section.dart';
+import 'package:eco_guia/pages/components/custom_header.dart';
+import 'package:eco_guia/pages/home/components/bottom_nav_bar.dart';
+import 'package:eco_guia/pages/home/components/itens_frequentes_section.dart';
+import 'package:eco_guia/pages/home/components//flutter_web_google_maps.dart';
+import 'package:eco_guia/pages/scan/scan.dart'; 
+import 'package:eco_guia/pages/locations/multiple_markers_map.dart'; 
+import 'package:eco_guia/pages/tabs/tela_1.dart';
+import 'package:eco_guia/pages/learn/learn.dart';
+import 'package:eco_guia/pages/tabs/tela_3.dart'; // profile a ser feito ainda
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -28,7 +26,8 @@ class _HomeState extends State<Home> {
   void _logout(BuildContext context) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setBool('isLoggedIn', false); // Remove o status de login
-    Navigator.pushReplacementNamed(context, '/login'); // Redireciona para a tela de login
+    Navigator.pushReplacementNamed(
+        context, '/login'); // Redireciona para a tela de login
   }
 
   // Função que atualiza o índice selecionado e redireciona para o mapa de múltiplos marcadores
