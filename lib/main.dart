@@ -1,22 +1,17 @@
+import 'package:eco_guia/pages/scan/scan.dart';
 import 'package:flutter/material.dart';
-import 'dart:ui'
-    as ui; // Import necessário para registrar ViewFactory no Flutter Web
-import 'dart:html'; // Necessário para usar elementos HTML no Flutter Web
-import 'pages/home/home.dart';
-import 'pages/tabs/tela_1.dart';
-import 'pages/learn/learn.dart';
-import 'pages/locations/multiple_markers_map.dart'; // Importando o MultipleMarkersMap
-import 'pages/tabs/tela_3.dart';
-import 'pages/tabs/tela_4.dart';
-import 'pages/rewards/rewards.dart'; // Import da tela genérica
+import 'package:eco_guia/pages/home/home.dart';
+import 'package:eco_guia/pages/tabs/login.dart';
+import 'package:eco_guia/pages/tabs/register.dart';
+import 'package:eco_guia/pages/learn/learn.dart';
+import 'package:eco_guia/pages/locations/multiple_markers_map.dart';
+import 'package:eco_guia/pages/rewards/rewards.dart';
+import 'package:eco_guia/pages/tabs/tela_3.dart';
+import 'package:sqflite_common_ffi/sqflite_ffi.dart';
+import 'package:eco_guia/pages/tabs/welcome_screen.dart';
 
 void main() {
-  // Registrar o elemento HTML 'map' para uso no Flutter Web
-  ui.platformViewRegistry.registerViewFactory(
-    'map',
-    (int viewId) => DivElement()..id = 'map',
-  );
-
+  // databaseFactory = databaseFactoryFfi;
   runApp(const MyApp());
 }
 
@@ -45,7 +40,7 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: '/',
       routes: {
-        '/': (context) => const Home(),
+        '/': (context) => const WelcomeScreen(),  
         '/location': (context) => const MultipleMarkersMap(
               mapId: 'full-map',
               latitude: -19.9191,
@@ -58,10 +53,13 @@ class MyApp extends StatelessWidget {
                 {'lat': -19.9600, 'lng': -43.9700, 'title': 'Ponto 5'},
               ],
             ),
-        '/learn': (context) => const Tela2(),
-        '/profile': (context) => const Tela3(),
-        '/scan': (context) => const Tela4(),
+        '/home': (context) => const Home(),
+        '/learn': (context) => const Learn(),
+        '/profile': (context) => const Profile(),
+        '/scan': (context) => const Scan(),
         '/rewards': (context) => const Rewards(),
+        '/login': (context) => const Login(),
+        '/register': (context) => const Register(),
       },
     );
   }
