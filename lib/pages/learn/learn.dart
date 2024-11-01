@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'components/descubra_widget.dart'; // Mantendo o import do DescubraWidget
 import 'components/topicos_card.dart'; // Importe o TopicosCard
 
-class Tela2 extends StatelessWidget {
-  const Tela2({super.key});
+class Learn extends StatelessWidget {
+  const Learn({super.key});
 
   @override
   Widget build(BuildContext context) {
