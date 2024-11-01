@@ -138,3 +138,27 @@ app.*.symbols
 !/packages/flutter_tools/test/data/dart_dependencies_test/**/.packages
 !/dev/ci/**/Gemfile.lock
 !.vscode/settings.json
+
+# Firebase configuration files (optional)
+android/app/google-services.json
+ios/Runner/GoogleService-Info.plist
+
+# Flutter build and cache
+/build
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.dart_tool/
+
+# IDE and editor-specific files
+.vscode/
+.idea/
+*.iml
+
+# System files
+.DS_Store
+Thumbs.db
+ehthumbs.db
+
+# Log files
+*.log
