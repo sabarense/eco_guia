@@ -9,30 +9,27 @@ class Learn extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        centerTitle: true, // Centraliza o título
         title: const Text(
           'Learn',
           style: TextStyle(
-            fontWeight: FontWeight.bold, // Negrito no título
-            color: Colors
-                .black, // Define a cor do título como preto para contraste
+            fontWeight: FontWeight.normal, // Remover o negrito
+            color: Colors.black,
           ),
         ),
-        elevation: 4, // Sombra suave na base da AppBar
-        shadowColor: Colors.black.withOpacity(0.2), // Cor da sombra
-        backgroundColor: Colors.white, // Define o fundo da AppBar como branco
+        backgroundColor: Colors.transparent,
+        elevation: 0, // Remover a sombra da AppBar
+        automaticallyImplyLeading: false, 
         iconTheme: const IconThemeData(
-          color: Colors.black, // Define a cor dos ícones como preta
+          color: Colors.black, // Cor do ícone de voltar
         ),
       ),
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
-            const DescubraWidget(), // Mantendo o DescubraWidget
+            const DescubraWidget(),
             const SizedBox(height: 20),
-            // Novo Componente TópicosCard
             const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16.0), // Margem lateral
+              padding: EdgeInsets.symmetric(horizontal: 16.0),
               child: Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
@@ -45,10 +42,8 @@ class Learn extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 10),
-            // Aplicar Padding no TopicosCard para manter a margem
             const Padding(
-              padding: EdgeInsets.symmetric(
-                  horizontal: 16.0), // Mesma margem lateral
+              padding: EdgeInsets.symmetric(horizontal: 16.0),
               child: TopicosCard(
                 title: 'Do lixo a arte',
                 description:
@@ -58,8 +53,7 @@ class Learn extends StatelessWidget {
               ),
             ),
             const Padding(
-              padding: EdgeInsets.symmetric(
-                  horizontal: 16.0), // Mesma margem lateral
+              padding: EdgeInsets.symmetric(horizontal: 16.0),
               child: TopicosCard(
                 title: 'Se torne um voluntário',
                 description:
