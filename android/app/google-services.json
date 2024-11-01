@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "518358208530",
+    "project_id": "ecoguia-84d7c",
+    "storage_bucket": "ecoguia-84d7c.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:518358208530:android:b0d6bfdac13eda85a048cb",
+        "android_client_info": {
+          "package_name": "com.ecoguia"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAs0ac4qGpjchkYEqKKBajst6ZgxLGvJu4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
