@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:eco_guia/services/user_service.dart';
+
 class Register extends StatefulWidget {
   const Register({super.key});
 
@@ -13,13 +14,18 @@ class _RegisterState extends State<Register> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _confirmPasswordController = TextEditingController();
+
+  bool _obscurePassword = true;
+  bool _obscureConfirmPassword = true;
 
   void _register() async {
     String name = _nameController.text;
     String email = _emailController.text;
     String password = _passwordController.text;
+    String confirmPassword = _confirmPasswordController.text;
 
-    if (name.isNotEmpty && email.isNotEmpty && password.isNotEmpty) {
+    if (name.isNotEmpty && email.isNotEmpty && password.isNotEmpty && password == confirmPassword) {
       UserService userService = UserService();
       await userService.addUser(name, email, password);
 
@@ -32,7 +38,7 @@ class _RegisterState extends State<Register> {
         context: context,
         builder: (context) => AlertDialog(
           title: const Text('Erro'),
-          content: const Text('Preencha todos os campos!'),
+          content: const Text('Preencha todos os campos e verifique se as senhas coincidem!'),
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context),
@@ -123,8 +129,43 @@ class _RegisterState extends State<Register> {
                           focusedBorder: OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.white),
                           ),
+                          suffixIcon: IconButton(
+                            icon: Icon(
+                              _obscurePassword ? Icons.visibility_off : Icons.visibility,
+                              color: Colors.white,
+                            ),
+                            onPressed: () {
+                              setState(() {
+                                _obscurePassword = !_obscurePassword;
+                              });
+                            },
+                          ),
                         ),
-                        obscureText: true,
+                        obscureText: _obscurePassword,
+                      ),
+                      const SizedBox(height: 16),
+                      TextField(
+                        controller: _confirmPasswordController,
+                        decoration: InputDecoration(
+                          labelText: 'Confirmar Senha',
+                          labelStyle: TextStyle(color: Colors.white),
+                          border: const OutlineInputBorder(),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.white),
+                          ),
+                          suffixIcon: IconButton(
+                            icon: Icon(
+                              _obscureConfirmPassword ? Icons.visibility_off : Icons.visibility,
+                              color: Colors.white,
+                            ),
+                            onPressed: () {
+                              setState(() {
+                                _obscureConfirmPassword = !_obscureConfirmPassword;
+                              });
+                            },
+                          ),
+                        ),
+                        obscureText: _obscureConfirmPassword,
                       ),
                       const SizedBox(height: 24),
                       ElevatedButton(
