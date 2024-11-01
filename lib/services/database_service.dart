@@ -41,18 +41,19 @@ class DatabaseService {
   }
 
   Future<bool> checkCredentials(String email, String password) async {
-  final db = await database;
-  final List<Map<String, dynamic>> maps = await db.query(
-    'users',
-    where: 'email = ? AND password = ?',
-    whereArgs: [email, password],
-  );
-  return maps.isNotEmpty;
-}
+    final db = await database;
+    final List<Map<String, dynamic>> maps = await db.query(
+      'users',
+      where: 'email = ? AND password = ?',
+      whereArgs: [email, password],
+    );
+    return maps.isNotEmpty;
+  }
 
   Future<void> insertUser(User user) async {
     final db = await database;
-    await db.insert('users', user.toMap(), conflictAlgorithm: ConflictAlgorithm.replace);
+    await db.insert('users', user.toMap(),
+        conflictAlgorithm: ConflictAlgorithm.replace);
   }
 
   Future<List<User>> getUsers() async {
@@ -67,6 +68,26 @@ class DatabaseService {
         password: maps[i]['password'],
       );
     });
+  }
+
+  Future<User?> getUserByEmail(String email) async {
+    final db = await database;
+
+    final List<Map<String, dynamic>> maps = await db.query(
+      'users',
+      where: 'email = ?',
+      whereArgs: [email],
+    );
+
+    if (maps.isNotEmpty) {
+      return User(
+        id: maps.first['id'],
+        name: maps.first['name'],
+        email: maps.first['email'],
+        password: maps.first['password'],
+      );
+    }
+    return null;
   }
 
   Future<void> updateUser(User user) async {
