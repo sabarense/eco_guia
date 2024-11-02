@@ -9,7 +9,6 @@ import 'package:eco_guia/pages/scan/scan.dart';
 import 'package:eco_guia/pages/locations/multiple_markers_map.dart';
 import 'package:eco_guia/pages/profile/profile.dart';
 import 'package:eco_guia/pages/learn/learn.dart';
-import 'package:eco_guia/pages/profile/profile.dart';
 import 'package:eco_guia/services/auth_service.dart';
 
 class Home extends StatefulWidget {
