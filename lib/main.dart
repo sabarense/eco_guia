@@ -17,6 +17,7 @@ import 'package:eco_guia/pages/profile/edit_profile.dart';
 import 'package:eco_guia/services/database_service.dart';
 import 'package:eco_guia/services/user_service.dart';
 import 'package:eco_guia/models/user.dart';
+import 'package:eco_guia/pages/profile/delete_profile.dart';
 
 Future<void> testDatabaseConnection() async {
   var factory = databaseFactoryFfiWeb;
@@ -112,6 +113,7 @@ class MyApp extends StatelessWidget {
             },
           );
         },
+        '/delete_profile': (context) => const DeleteProfile(),
       },
     );
   }
