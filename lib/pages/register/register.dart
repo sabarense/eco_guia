@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:eco_guia/services/user_service.dart';
 
 class Register extends StatefulWidget {
@@ -25,19 +24,12 @@ class _RegisterState extends State<Register> {
     String password = _passwordController.text;
     String confirmPassword = _confirmPasswordController.text;
 
-    if (name.isNotEmpty && email.isNotEmpty && password.isNotEmpty && password == confirmPassword) {
-      UserService userService = UserService();
-      await userService.addUser(name, email, password);
-      Navigator.pushReplacementNamed(context, '/login');
-      final prefs = await SharedPreferences.getInstance();
-      await prefs.setBool('isLoggedIn', true);
-
-    } else {
+    if (name.isEmpty || email.isEmpty || password.isEmpty || confirmPassword.isEmpty) {
       showDialog(
         context: context,
         builder: (context) => AlertDialog(
           title: const Text('Erro'),
-          content: const Text('Preencha todos os campos e verifique se as senhas coincidem!'),
+          content: const Text('Preencha todos os campos!'),
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context),
@@ -46,7 +38,29 @@ class _RegisterState extends State<Register> {
           ],
         ),
       );
+      return;
     }
+
+    if (password != confirmPassword) {
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: const Text('Erro'),
+          content: const Text('As senhas não coincidem!'),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text('OK'),
+            ),
+          ],
+        ),
+      );
+      return;
+    }
+
+    UserService userService = UserService();
+    await userService.addUser(name, email, password);
+    Navigator.pushReplacementNamed(context, '/login');
   }
 
   @override
