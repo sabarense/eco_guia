@@ -59,8 +59,40 @@ class _RegisterState extends State<Register> {
     }
 
     UserService userService = UserService();
-    await userService.addUser(name, email, password);
-    Navigator.pushReplacementNamed(context, '/login');
+
+    try {
+      await userService.addUser(name, email, password);
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: const Text('Sucesso'),
+          content: const Text('Conta criada com sucesso!'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+                Navigator.pushReplacementNamed(context, '/login');
+              },
+              child: const Text('OK'),
+            ),
+          ],
+        ),
+      );
+    } catch (e) {
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: const Text('Erro'),
+          content: Text(e.toString()),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text('OK'),
+            ),
+          ],
+        ),
+      );
+    }
   }
 
   @override
