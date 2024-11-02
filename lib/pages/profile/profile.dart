@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:eco_guia/services/auth_service.dart';
-import 'package:eco_guia/models/user.dart'; 
+import 'package:eco_guia/models/user.dart';
 
 class Profile extends StatelessWidget {
   const Profile({super.key});
@@ -8,12 +8,12 @@ class Profile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     
-    User? currentUser = AuthService.getCurrentUser(); 
+    User? currentUser = AuthService.getCurrentUser();
 
     return Scaffold(
       appBar: AppBar(
         title: const Text('Perfil'),
-        automaticallyImplyLeading: false, // Remove o ícone de voltar
+        automaticallyImplyLeading: false,
         actions: [
           IconButton(
             icon: const Icon(Icons.logout, color: Colors.black),
@@ -41,30 +41,33 @@ class Profile extends StatelessWidget {
             ),
             const SizedBox(height: 8),
             Text(
-              currentUser?.email ?? 'email@exemplo.com', 
+              currentUser?.email ?? 'email@exemplo.com',
               style: Theme.of(context).textTheme.bodyMedium,
             ),
             const SizedBox(height: 20),
-            // Botão Editar Perfil
-            ElevatedButton(
-              onPressed: () {
-                Navigator.pushNamed(context, '/edit_profile');
-              },
-              child: const Text('Editar Perfil'),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFF259E73)
-              ),
-            ),
-            const SizedBox(height: 10),
-            Text(
-              'Sobre você:',
-              style: Theme.of(context).textTheme.headlineSmall,
-            ),
-            const SizedBox(height: 8),
-            Text(
-               'Aqui você pode adicionar uma breve descrição sobre você ou interesses.', 
-              textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.bodyMedium,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/edit_profile');
+                  },
+                  child: const Text('Editar Perfil'),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFF259E73),
+                  ),
+                ),
+                const SizedBox(width: 10),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/delete_profile');
+                  },
+                  child: const Text('Excluir Perfil'),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.redAccent,
+                  ),
+                ),
+              ],
             ),
           ],
         ),
