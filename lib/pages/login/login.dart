@@ -89,7 +89,13 @@ class _LoginState extends State<Login> {
             Navigator.pop(context);
           },
         ),
-        title: const Text('Login'),
+        title: const Text(
+          'Login',
+          style: TextStyle(
+            fontSize: 24,
+            color: Colors.white,
+          ),
+        ),
       ),
       body: Container(
         decoration: BoxDecoration(
