@@ -159,9 +159,10 @@ class _RegisterState extends State<Register> {
                       const SizedBox(height: 40),
                       TextField(
                         controller: _nameController,
+                        style: const TextStyle(color: Colors.white),
                         decoration: InputDecoration(
                           labelText: 'Nome',
-                          labelStyle: TextStyle(color: Colors.white),
+                          labelStyle: const TextStyle(color: Colors.white),
                           border: const OutlineInputBorder(),
                           focusedBorder: OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.white),
@@ -171,9 +172,10 @@ class _RegisterState extends State<Register> {
                       const SizedBox(height: 16),
                       TextField(
                         controller: _emailController,
+                        style: const TextStyle(color: Colors.white),
                         decoration: InputDecoration(
                           labelText: 'E-mail',
-                          labelStyle: TextStyle(color: Colors.white),
+                          labelStyle: const TextStyle(color: Colors.white),
                           border: const OutlineInputBorder(),
                           focusedBorder: OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.white),
@@ -184,9 +186,10 @@ class _RegisterState extends State<Register> {
                       const SizedBox(height: 16),
                       TextField(
                         controller: _passwordController,
+                        style: const TextStyle(color: Colors.white), 
                         decoration: InputDecoration(
                           labelText: 'Senha',
-                          labelStyle: TextStyle(color: Colors.white),
+                          labelStyle: const TextStyle(color: Colors.white),
                           border: const OutlineInputBorder(),
                           focusedBorder: OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.white),
@@ -208,9 +211,10 @@ class _RegisterState extends State<Register> {
                       const SizedBox(height: 16),
                       TextField(
                         controller: _confirmPasswordController,
+                        style: const TextStyle(color: Colors.white),
                         decoration: InputDecoration(
                           labelText: 'Confirmar Senha',
-                          labelStyle: TextStyle(color: Colors.white),
+                          labelStyle: const TextStyle(color: Colors.white),
                           border: const OutlineInputBorder(),
                           focusedBorder: OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.white),
@@ -233,7 +237,7 @@ class _RegisterState extends State<Register> {
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.white,
-                          foregroundColor: Color(0xFF185A46),
+                          foregroundColor: const Color(0xFF185A46),
                         ),
                         onPressed: _register,
                         child: const Text('Registrar'),
