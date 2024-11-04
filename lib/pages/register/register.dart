@@ -123,7 +123,13 @@ class _RegisterState extends State<Register> {
             Navigator.pop(context); 
           },
         ),
-        title: const Text('Crie sua Conta'),
+        title: const Text(
+          'Crie sua conta',
+          style: TextStyle(
+            fontSize: 24,
+            color: Colors.white,
+          ),
+        ),
       ),
       body: Container(
         decoration: BoxDecoration(
