@@ -125,9 +125,10 @@ class _LoginState extends State<Login> {
                       const SizedBox(height: 70),
                       TextField(
                         controller: _emailController,
+                        style: const TextStyle(color: Colors.white),
                         decoration: InputDecoration(
                           labelText: 'E-mail',
-                          labelStyle: TextStyle(color: Colors.white),
+                          labelStyle: const TextStyle(color: Colors.white),
                           border: const OutlineInputBorder(),
                           focusedBorder: OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.white),
@@ -138,10 +139,11 @@ class _LoginState extends State<Login> {
                       const SizedBox(height: 16),
                       TextField(
                         controller: _passwordController,
+                        style: const TextStyle(color: Colors.white),
                         obscureText: !_isPasswordVisible,
                         decoration: InputDecoration(
                           labelText: 'Senha',
-                          labelStyle: TextStyle(color: Colors.white),
+                          labelStyle: const TextStyle(color: Colors.white),
                           border: const OutlineInputBorder(),
                           focusedBorder: OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.white),
