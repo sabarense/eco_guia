@@ -7,7 +7,6 @@ class Profile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    
     User? currentUser = AuthService.getCurrentUser();
 
     return Scaffold(
@@ -32,7 +31,7 @@ class Profile extends StatelessWidget {
           children: <Widget>[
             CircleAvatar(
               radius: 50,
-              backgroundImage: AssetImage('assets/profile_picture.png'),
+              backgroundImage: AssetImage('assets/profile.png'),
             ),
             const SizedBox(height: 20),
             Text(
@@ -64,10 +63,37 @@ class Profile extends StatelessWidget {
                   },
                   child: const Text('Excluir Perfil'),
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.redAccent,
+                    backgroundColor:
+                        const Color(0xFF900000), // Cor de fundo do botão
+                    foregroundColor: Colors.white, // Cor do texto do botão
                   ),
                 ),
               ],
+            ),
+            const SizedBox(height: 30),
+            // Tab para "Ver Itens Reciclados"
+            InkWell(
+              onTap: () {
+                Navigator.pushNamed(context, '/itens_reciclados');
+              },
+              child: Container(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
+                decoration: BoxDecoration(
+                  color: Colors.grey[300],
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: const [
+                    Text(
+                      'Ver itens reciclados',
+                      style: TextStyle(fontSize: 16),
+                    ),
+                    Icon(Icons.arrow_forward_ios),
+                  ],
+                ),
+              ),
             ),
           ],
         ),
