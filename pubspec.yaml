@@ -27,7 +27,11 @@ dependencies:
   geocoding: ^2.0.0
   image_picker: ^0.8.7+3
   http: ^1.2.2
-
+  firebase_core: ^3.8.1
+  cloud_firestore: ^5.5.1
+  firebase_auth: ^5.3.4
+  firebase_storage: ^12.3.7
+  intl: ^0.20.1
 
 dev_dependencies:
   flutter_test:
@@ -71,3 +75,10 @@ flutter:
 
     - assets/scan_mockup.png
     - assets/logo.svg
+
+    - assets/plasticohighres.png
+    - assets/vidrohighres.png
+    - assets/papelhighres.png
+    - assets/metalhighres.png
+
+    - assets/ecoguia.png
