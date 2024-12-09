@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../recycle/recycle.dart'; // Importação da tela Recycle
 
 class MateriaisSection extends StatelessWidget {
   const MateriaisSection({super.key});
@@ -29,8 +30,8 @@ class MateriaisSection extends StatelessWidget {
           ),
         ),
         // Lista de materiais ocupando a largura total da tela
-        const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16.0),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -38,31 +39,27 @@ class MateriaisSection extends StatelessWidget {
                 child: MaterialCard(
                   imagePath: 'assets/plastico.png',
                   materialName: 'Plástico',
-                  isSelected: false, // Deselecionado
                 ),
               ),
-              SizedBox(width: 16), // Espaçamento entre os cards
+              const SizedBox(width: 16), // Espaçamento entre os cards
               Expanded(
                 child: MaterialCard(
                   imagePath: 'assets/vidro.png',
                   materialName: 'Vidro',
-                  isSelected: false, // Deselecionado
                 ),
               ),
-              SizedBox(width: 16), // Espaçamento entre os cards
+              const SizedBox(width: 16), // Espaçamento entre os cards
               Expanded(
                 child: MaterialCard(
                   imagePath: 'assets/papel.png',
                   materialName: 'Papel',
-                  isSelected: false, // Deselecionado
                 ),
               ),
-              SizedBox(width: 16), // Espaçamento entre os cards
+              const SizedBox(width: 16), // Espaçamento entre os cards
               Expanded(
                 child: MaterialCard(
                   imagePath: 'assets/metal.png',
                   materialName: 'Metal',
-                  isSelected: false, // Deselecionado
                 ),
               ),
             ],
@@ -76,56 +73,68 @@ class MateriaisSection extends StatelessWidget {
 class MaterialCard extends StatelessWidget {
   final String imagePath;
   final String materialName;
-  final bool isSelected;
 
   const MaterialCard({
     required this.imagePath,
     required this.materialName,
-    this.isSelected = false,
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 130, // Altura definida para os cards de materiais
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(15),
-        border: isSelected
-            ? Border.all(
-                color: Theme.of(context).colorScheme.primary,
-                width: 2, // Borda verde se selecionado
-              )
-            : null, // Nenhuma borda se deselecionado
-        boxShadow: const [
-          BoxShadow(
-            color: Colors.black12,
-            blurRadius: 10,
-            offset: Offset(0, 5), // Sombra sutil
-          ),
-        ],
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Image.asset(
-            imagePath,
-            height: 80,
-            fit: BoxFit.contain,
-          ),
-          const SizedBox(height: 8),
-          Text(
-            materialName,
-            style: TextStyle(
-              fontSize: 12,
-              color: isSelected
-                  ? Theme.of(context).colorScheme.primary
-                  : Colors.black,
+    return GestureDetector(
+      onTap: () {
+        // Ajustar o caminho da imagem para incluir "highres"
+        final adjustedImagePath = _getHighResImagePath(imagePath);
+
+        // Navegar para a tela Recycle passando os parâmetros
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => Recycle(
+              nome: materialName,
+              imagePath: adjustedImagePath,
             ),
           ),
-        ],
+        );
+      },
+      child: Container(
+        height: 130, // Altura definida para os cards de materiais
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(15),
+          boxShadow: const [
+            BoxShadow(
+              color: Colors.black12,
+              blurRadius: 10,
+              offset: Offset(0, 5), // Sombra sutil
+            ),
+          ],
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset(
+              imagePath,
+              height: 80,
+              fit: BoxFit.contain,
+            ),
+            const SizedBox(height: 8),
+            Text(
+              materialName,
+              style: const TextStyle(
+                fontSize: 12,
+                color: Colors.black,
+              ),
+            ),
+          ],
+        ),
       ),
     );
+  }
+
+  /// Ajusta o caminho para incluir "highres" antes da extensão .png
+  String _getHighResImagePath(String path) {
+    return path.replaceAll('.png', 'highres.png');
   }
 }
