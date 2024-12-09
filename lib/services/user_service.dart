@@ -8,12 +8,14 @@ class UserService {
     return await _databaseService.getUsers();
   }
 
-  Future<void> addUser(String name, String email, String password) async {
-    final user = User(id: DateTime.now().toString(), name: name, email: email, password: password);
+  Future<void> addUser(
+      String uid, String name, String email, String password) async {
+    final user = User(id: uid, name: name, email: email, password: password);
     await _databaseService.insertUser(user);
   }
 
-  Future<void> updateUser(String id, String name, String email, String password) async {
+  Future<void> updateUser(
+      String id, String name, String email, String password) async {
     final user = User(id: id, name: name, email: email, password: password);
     await _databaseService.updateUser(user);
   }
