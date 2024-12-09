@@ -2,8 +2,11 @@ import 'dart:convert';
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:http/http.dart' as http;
 import 'package:eco_guia/pages/home/components/bottom_nav_bar.dart';
+import '../recycle/recycle.dart';
 
 class Scan extends StatefulWidget {
   const Scan({super.key});
@@ -14,7 +17,8 @@ class Scan extends StatefulWidget {
 
 class _ScanState extends State<Scan> {
   Uint8List? _imageBytes;
-  String? _result;
+  String? _material;
+  String? _firebaseImageUrl;
   bool _isLoading = false;
 
   Future<void> _pickImage() async {
@@ -44,9 +48,10 @@ class _ScanState extends State<Scan> {
         final bytes = await pickedFile.readAsBytes();
         setState(() {
           _imageBytes = bytes;
-          _result = null;
+          _material = null;
+          _firebaseImageUrl = null;
         });
-        _analyzeImageFromClarifai();
+        await _analyzeImageFromClarifai();
       }
     }
   }
@@ -69,23 +74,61 @@ class _ScanState extends State<Scan> {
       if (response.statusCode == 200) {
         final jsonResponse = jsonDecode(response.body);
         final material = jsonResponse['material'];
+
         setState(() {
-            _result = "Material identificado: $material";
-          }
-        );
+          _material = material;
+        });
+
+        // Após obter a resposta da API, faça o upload para o Firebase
+        await _uploadImageToFirebase();
       } else {
         setState(() {
-          _result = "Erro na análise: não foi possível identificar o material.";
+          _material = "Erro na análise";
         });
       }
     } catch (e) {
       setState(() {
-        _result = "Erro de conexão: verifique sua rede ou servidor.";
+        _material = "Erro de conexão";
       });
     } finally {
       setState(() {
         _isLoading = false;
       });
+    }
+  }
+
+  Future<void> _uploadImageToFirebase() async {
+    try {
+      final storageRef = FirebaseStorage.instance
+          .ref()
+          .child('uploads/${DateTime.now().millisecondsSinceEpoch}.jpg');
+
+      final uploadTask = storageRef.putData(_imageBytes!);
+      final snapshot = await uploadTask.whenComplete(() {});
+
+      final downloadUrl = await snapshot.ref.getDownloadURL();
+
+      setState(() {
+        _firebaseImageUrl = downloadUrl;
+      });
+    } catch (e) {
+      setState(() {
+        _material = "Erro ao fazer upload da imagem.";
+      });
+    }
+  }
+
+  void _goToRecycle() {
+    if (_material != null && _firebaseImageUrl != null) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => Recycle(
+            nome: _material!,
+            imagePath: _firebaseImageUrl!,
+          ),
+        ),
+      );
     }
   }
 
@@ -110,20 +153,12 @@ class _ScanState extends State<Scan> {
                       : Image.memory(_imageBytes!),
                 ),
               ),
-              if (_result != null)
+              if (_material != null && _firebaseImageUrl != null)
                 Padding(
-                  padding: const EdgeInsets.only(bottom: 80.0),
-                  child: Card(
-                    elevation: 4,
-                    color: Colors.grey[100],
-                    child: Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Text(
-                        _result!,
-                        textAlign: TextAlign.center,
-                        style: const TextStyle(fontSize: 16),
-                      ),
-                    ),
+                  padding: const EdgeInsets.only(bottom: 20.0),
+                  child: ElevatedButton(
+                    onPressed: _goToRecycle,
+                    child: Text('$_material identificado! Recicle-o agora'),
                   ),
                 ),
             ],
