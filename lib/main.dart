@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'package:sqflite_common_ffi_web/sqflite_ffi_web.dart';
+import 'package:firebase_core/firebase_core.dart'; // Importação do Firebase
 import 'package:eco_guia/pages/home/home.dart';
 import 'package:eco_guia/pages/login/login.dart';
 import 'package:eco_guia/pages/register/register.dart';
@@ -18,21 +19,35 @@ import 'package:eco_guia/services/database_service.dart';
 import 'package:eco_guia/services/user_service.dart';
 import 'package:eco_guia/models/user.dart';
 import 'package:eco_guia/pages/profile/delete_profile.dart';
+import 'firebase_options.dart'; // Importação do arquivo de configuração do Firebase
+import 'package:eco_guia/pages/itens_reciclados/itens_reciclados.dart';
 
 Future<void> testDatabaseConnection() async {
   var factory = databaseFactoryFfiWeb;
   var db = await factory.openDatabase('my_db.db');
   var sqliteVersion =
       (await db.rawQuery('select sqlite_version()')).first.values.first;
-  print(sqliteVersion); 
+  print(sqliteVersion);
 }
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding
+      .ensureInitialized(); // Necessário para inicializações assíncronas
+
+  // Inicializar Firebase
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
+  // Configurar database para web ou outras plataformas
   if (kIsWeb) {
     databaseFactory = databaseFactoryFfiWeb; // Para web
   } else {
     databaseFactory = databaseFactoryFfi; // Para outras plataformas
   }
+
+  // Testar conexão com o banco
+  testDatabaseConnection();
 
   runApp(
     MultiProvider(
@@ -43,7 +58,6 @@ void main() {
       child: const MyApp(),
     ),
   );
-  testDatabaseConnection();
 }
 
 class MyApp extends StatelessWidget {
@@ -114,6 +128,7 @@ class MyApp extends StatelessWidget {
           );
         },
         '/delete_profile': (context) => const DeleteProfile(),
+        '/itens_reciclados': (context) => const ItensReciclados(),
       },
     );
   }
